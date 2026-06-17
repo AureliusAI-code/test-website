@@ -1,1 +1,1621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPECTER — Know Your Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080808;
+      --bg-card: #0f0f0f;
+      --bg-card-2: #141414;
+      --red: #E03020;
+      --red-dark: #7a1f15;
+      --white: #f0ede8;
+      --gray: #6b6b6b;
+      --gray-mid: #444;
+      --border: rgba(255,255,255,0.08);
+      --border-bright: rgba(255,255,255,0.18);
+      --font-mono: 'Space Mono', monospace;
+      --font-sans: 'Space Grotesk', sans-serif;
+    }
 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+      background-size: 44px 44px;
+      color: var(--white);
+      font-family: var(--font-sans);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAVBAR ─────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 20px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.8); }
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    .nav-menu-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px; height: 56px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      border-left: 1px solid var(--border);
+      color: var(--white);
+      gap: 4px;
+      flex-direction: column;
+    }
+
+    .nav-menu-btn span {
+      display: block;
+      width: 20px; height: 1.5px;
+      background: var(--white);
+      transition: all 0.3s;
+    }
+
+    .nav-menu-btn.open span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+    .nav-menu-btn.open span:nth-child(2) { opacity: 0; }
+    .nav-menu-btn.open span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 20px;
+      height: 100%;
+      background: var(--white);
+      color: #080808;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      text-transform: uppercase;
+      border-left: 1px solid var(--border);
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover { background: #e0ddd8; }
+
+    .mobile-menu {
+      position: fixed;
+      top: 56px; left: 0; right: 0;
+      background: rgba(8,8,8,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 24px 20px;
+      z-index: 99;
+      display: none;
+    }
+
+    .mobile-menu.open { display: block; }
+
+    .mobile-menu a {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray);
+      text-decoration: none;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+
+    .mobile-menu a:hover { color: var(--white); }
+
+    /* ─── HERO ───────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 100px 20px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--gray);
+      margin-bottom: 32px;
+    }
+
+    .status-badge .sq { width: 7px; height: 7px; background: var(--red); flex-shrink: 0; }
+    .status-badge .sep { color: var(--gray-mid); margin: 0 4px; }
+    .status-badge .live { color: var(--white); }
+
+    .hero h1 {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: clamp(36px, 7vw, 80px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+      max-width: 800px;
+    }
+
+    .hero h1 .accent {
+      display: inline-block;
+      width: 0.65em;
+      height: 0.65em;
+      background: var(--red);
+      margin: 0 4px 4px;
+      vertical-align: middle;
+    }
+
+    .hero-sub {
+      font-family: var(--font-mono);
+      font-size: clamp(13px, 1.8vw, 16px);
+      line-height: 1.8;
+      color: var(--gray);
+      max-width: 560px;
+      margin-bottom: 48px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 80px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 24px;
+      background: var(--white);
+      color: #080808;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover { background: #e0ddd8; transform: translateY(-1px); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--border-bright);
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .btn-secondary:hover { border-color: var(--white); transform: translateY(-1px); }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      padding-top: 40px;
+    }
+
+    .stat {
+      flex: 1;
+      min-width: 140px;
+      padding: 0 0 0 24px;
+      border-left: 1px solid var(--border);
+    }
+
+    .stat:first-child { padding-left: 0; border-left: none; }
+
+    .stat-num {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--gray);
+      text-transform: uppercase;
+    }
+
+    /* ─── SECTION WRAPPER ────────────────────────── */
+    section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--gray);
+      text-transform: uppercase;
+      margin-bottom: 36px;
+    }
+
+    .section-label .sq { width: 7px; height: 7px; background: var(--red); flex-shrink: 0; }
+    .section-label .sep { color: var(--gray-mid); }
+
+    .section-num {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: clamp(64px, 10vw, 120px);
+      line-height: 0.85;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.12);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    h2 {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: clamp(28px, 5vw, 52px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .section-body {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      line-height: 1.9;
+      color: var(--gray);
+      max-width: 580px;
+      margin-bottom: 40px;
+    }
+
+    /* ─── BRACKET BOX ────────────────────────────── */
+    .bracket-box {
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 32px;
+    }
+
+    .bracket-box::before {
+      content: '';
+      position: absolute;
+      top: -2px; left: -2px;
+      width: 24px; height: 24px;
+      border-top: 2px solid var(--white);
+      border-left: 2px solid var(--white);
+    }
+
+    .bracket-box::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; right: -2px;
+      width: 24px; height: 24px;
+      border-bottom: 2px solid var(--white);
+      border-right: 2px solid var(--white);
+    }
+
+    .bracket-box-inner::before {
+      content: '';
+      position: absolute;
+      top: -2px; right: -2px;
+      width: 24px; height: 24px;
+      border-top: 2px solid var(--white);
+      border-right: 2px solid var(--white);
+    }
+
+    .bracket-box-inner::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: -2px;
+      width: 24px; height: 24px;
+      border-bottom: 2px solid var(--white);
+      border-left: 2px solid var(--white);
+    }
+
+    /* ─── BULLETS ────────────────────────────────── */
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bullet-list li {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .bullet-list li:first-child { border-top: 1px solid var(--border); }
+
+    .bullet-list .bsq {
+      width: 7px; height: 7px;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+
+    .bullet-list .bsq-dim {
+      width: 7px; height: 7px;
+      border: 1px solid var(--gray);
+      flex-shrink: 0;
+    }
+
+    /* ─── CARDS GRID ─────────────────────────────── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .card {
+      background: var(--bg-card);
+      padding: 28px 24px;
+      transition: background 0.2s;
+    }
+
+    .card:hover { background: var(--bg-card-2); }
+
+    .card-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--gray);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-label::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: var(--red);
+    }
+
+    .card h3 {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .card p {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.8;
+      color: var(--gray);
+    }
+
+    .card-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    /* ─── STEPS ──────────────────────────────────── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 24px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+
+    .step:first-child { border-top: 1px solid var(--border); }
+
+    .step-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--gray);
+      padding-top: 4px;
+    }
+
+    .step-num span {
+      display: block;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 40px;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .step-content h3 {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .step-content p {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--gray);
+    }
+
+    .step-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      background: var(--red);
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    /* ─── SCORE DIMENSIONS ───────────────────────── */
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .score-dim {
+      background: var(--bg-card);
+      padding: 24px 20px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.2s;
+    }
+
+    .score-dim:hover { background: var(--bg-card-2); }
+
+    .score-dim::before {
+      content: attr(data-index);
+      position: absolute;
+      top: 12px; right: 16px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray-mid);
+    }
+
+    .dim-key {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .dim-label {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    .dim-desc {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      line-height: 1.7;
+      color: var(--gray);
+    }
+
+    .score-bar-wrap {
+      margin-top: 14px;
+      height: 2px;
+      background: var(--gray-mid);
+    }
+
+    .score-bar {
+      height: 100%;
+      background: var(--red);
+      transition: width 1.2s ease;
+      width: 0;
+    }
+
+    /* ─── CODE BLOCK ─────────────────────────────── */
+    .code-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .code-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .code-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .code-dots span {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+
+    .code-dots span:nth-child(1) { background: var(--red); }
+    .code-dots span:nth-child(2) { background: #888; }
+    .code-dots span:nth-child(3) { background: #444; }
+
+    .code-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .code-copy {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--gray);
+      text-transform: uppercase;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--gray);
+      transition: color 0.2s;
+    }
+
+    .code-copy:hover { color: var(--white); }
+
+    .code-body {
+      padding: 20px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.9;
+      overflow-x: auto;
+    }
+
+    .code-body pre { white-space: pre; }
+
+    .c-method { color: #6cb6ff; }
+    .c-url { color: var(--white); }
+    .c-key { color: #e6934a; }
+    .c-val { color: #7ee787; }
+    .c-str { color: #a5d6ff; }
+    .c-cmt { color: var(--gray); font-style: italic; }
+    .c-num { color: #f2cc60; }
+
+    /* ─── TAGS ───────────────────────────────────── */
+    .tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border: 1px solid var(--border-bright);
+      color: var(--white);
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+
+    .tag-red {
+      background: var(--red);
+      border-color: var(--red);
+    }
+
+    /* ─── PRICING ────────────────────────────────── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .pricing-card {
+      background: var(--bg-card);
+      padding: 32px 28px;
+      position: relative;
+    }
+
+    .pricing-card.featured {
+      background: var(--bg-card-2);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .pricing-num {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 72px;
+      line-height: 0.85;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.15);
+      margin-bottom: 16px;
+    }
+
+    .pricing-featured-badge {
+      position: absolute;
+      top: 0; right: 24px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      background: var(--red);
+      color: var(--white);
+      padding: 4px 10px;
+      text-transform: uppercase;
+    }
+
+    .pricing-plan {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 8px;
+    }
+
+    .pricing-price {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 32px;
+      margin-bottom: 4px;
+    }
+
+    .pricing-period {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray);
+      margin-bottom: 24px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 28px;
+    }
+
+    .pricing-features li {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--gray);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pricing-features li::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+
+    .pricing-features li.dim::before { background: transparent; border: 1px solid var(--gray-mid); }
+    .pricing-features li.dim { color: var(--gray-mid); }
+
+    /* ─── MARQUEE ────────────────────────────────── */
+    .marquee-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+      background: rgba(255,255,255,0.01);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 48px;
+      white-space: nowrap;
+      animation: marquee 30s linear infinite;
+    }
+
+    .marquee-item {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--gray);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .marquee-item span { color: var(--red); }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ─── CURSOR / TYPING ────────────────────────── */
+    .typed-cursor {
+      display: inline-block;
+      color: var(--red);
+      font-weight: 400;
+      animation: blink-cursor 0.75s step-start infinite;
+      margin-left: 1px;
+    }
+
+    @keyframes blink-cursor {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* ─── SECTION SPLIT ──────────────────────────── */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .split { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+
+    .footer-logo {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.12em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-tagline {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 8px;
+      max-width: 280px;
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 16px;
+    }
+
+    .footer-col a {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--white);
+      text-decoration: none;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: var(--gray); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+    }
+
+    .footer-bottom span {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray);
+    }
+
+    .footer-status .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse 2s infinite;
+    }
+
+    /* ─── SCROLL REVEAL ──────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── MOBILE ─────────────────────────────────── */
+    @media (max-width: 600px) {
+      .hero { padding: 90px 16px 48px; }
+      section { padding: 60px 16px; }
+      .hero-stats { gap: 24px; }
+      .stat { min-width: 110px; }
+      .cards-grid, .score-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .step { grid-template-columns: 48px 1fr; gap: 16px; }
+      footer { padding: 40px 16px; }
+      .footer-links { gap: 32px; }
+      .nav-cta { font-size: 10px; padding: 0 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAVBAR ─── -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <span class="nav-dot"></span>
+      SPECTER
+    </a>
+    <div class="nav-right">
+      <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="#integrate" class="nav-cta">INSTALL.MD ↗</a>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#problem">// The Problem</a>
+    <a href="#how">// How It Works</a>
+    <a href="#score">// The Score</a>
+    <a href="#integrate">// Integrate</a>
+    <a href="#access">// Access</a>
+  </div>
+
+  <!-- ─── HERO ─── -->
+  <div class="hero">
+    <div class="status-badge">
+      <span class="sq"></span>
+      // KYA · PROTOCOL
+      <span class="sep">—</span>
+      // STATUS: <span class="live">ACTIVE</span>
+      <span class="sep">·</span>
+      ERC-8004
+    </div>
+
+    <h1 data-type>
+      The identity layer<br>
+      <span class="accent"></span>agents never had.
+    </h1>
+
+    <p class="hero-sub">
+      Behavioral reputation scoring for autonomous agents.<br>
+      On-chain. Permissionless. Self-improving.<br>
+      Built on Aeon + Hermes.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#integrate" class="btn-primary">GET SKILL.MD ↗</a>
+      <a href="#score" class="btn-secondary">VIEW THE SCORE →</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">96:1</div>
+        <div class="stat-label">Non-human to human<br>identity ratio</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">7</div>
+        <div class="stat-label">Behavioral<br>dimensions scored</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">ERC-8004</div>
+        <div class="stat-label">On-chain identity<br>standard</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Autonomous<br>monitoring</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── MARQUEE ─── -->
+  <div class="marquee-wrap">
+    <div class="marquee-track" id="marqueeTrack">
+      <span class="marquee-item"><span>■</span> IDENTITY SCORING</span>
+      <span class="marquee-item"><span>■</span> ERC-8004 COMPLIANT</span>
+      <span class="marquee-item"><span>■</span> AEON POWERED</span>
+      <span class="marquee-item"><span>■</span> HERMES MEMORY</span>
+      <span class="marquee-item"><span>■</span> SELF-IMPROVING</span>
+      <span class="marquee-item"><span>■</span> BANKR NATIVE</span>
+      <span class="marquee-item"><span>■</span> PERMISSIONLESS</span>
+      <span class="marquee-item"><span>■</span> CROSS-CHAIN</span>
+      <span class="marquee-item"><span>■</span> KNOW YOUR AGENT</span>
+      <span class="marquee-item"><span>■</span> IDENTITY SCORING</span>
+      <span class="marquee-item"><span>■</span> ERC-8004 COMPLIANT</span>
+      <span class="marquee-item"><span>■</span> AEON POWERED</span>
+      <span class="marquee-item"><span>■</span> HERMES MEMORY</span>
+      <span class="marquee-item"><span>■</span> SELF-IMPROVING</span>
+      <span class="marquee-item"><span>■</span> BANKR NATIVE</span>
+      <span class="marquee-item"><span>■</span> PERMISSIONLESS</span>
+      <span class="marquee-item"><span>■</span> CROSS-CHAIN</span>
+      <span class="marquee-item"><span>■</span> KNOW YOUR AGENT</span>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 01: THE PROBLEM ─── -->
+  <section id="problem">
+    <div class="section-label">
+      <span class="sq"></span>
+      // VOID_STATE · 01
+      <span class="sep">—</span>
+      // THE PROBLEM
+    </div>
+
+    <div class="split">
+      <div>
+        <span class="section-num">01</span>
+        <h2 data-type>96 ghosts.<br>Zero credit.</h2>
+        <p class="section-body">
+          Non-human identities now outnumber human employees 96-to-1. Yet every agent
+          remains an anonymous wallet — no credit, no trust, no access to permissioned systems.
+          The agent economy is real. Its identity layer is not.
+        </p>
+        <ul class="bullet-list">
+          <li><span class="bsq"></span>Agents can't prove past behavior across sessions</li>
+          <li><span class="bsq"></span>No cross-chain reputation primitive exists</li>
+          <li><span class="bsq"></span>Permissioned DeFi pools stay permanently gated</li>
+          <li><span class="bsq"></span>Scam agents look identical to legitimate ones</li>
+          <li><span class="bsq-dim"></span>98% of agent payments settle through one stablecoin</li>
+          <li><span class="bsq-dim"></span>Zero protocol for agent credit scoring</li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="bracket-box bracket-box-inner reveal">
+          <div class="card-label" style="margin-bottom: 20px;">IDENTITY_GAP · CURRENT STATE</div>
+
+          <div class="code-block" style="margin-bottom: 24px;">
+            <div class="code-header">
+              <div class="code-header-left">
+                <div class="code-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <span class="code-title">GET /agent/0x4f3a...b7e2</span>
+              </div>
+            </div>
+            <div class="code-body">
+<pre><span class="c-cmt">// WITHOUT SPECTER</span>
+{
+  <span class="c-key">"address"</span>: <span class="c-str">"0x4f3a...b7e2"</span>,
+  <span class="c-key">"balance"</span>: <span class="c-num">2.4</span> ETH,
+  <span class="c-key">"reputation"</span>: <span class="c-str">null</span>,
+  <span class="c-key">"identity"</span>: <span class="c-str">null</span>,
+  <span class="c-key">"trust_score"</span>: <span class="c-str">null</span>,
+  <span class="c-key">"history"</span>: <span class="c-str">null</span>
+}</pre>
+            </div>
+          </div>
+
+          <ul class="bullet-list">
+            <li><span class="bsq"></span>Anonymous by design</li>
+            <li><span class="bsq"></span>No behavioral memory</li>
+            <li><span class="bsq"></span>Unbanked. Unverified. Untrusted.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 02: HOW IT WORKS ─── -->
+  <section id="how">
+    <div class="section-label">
+      <span class="sq"></span>
+      // MECHANISM · 02
+      <span class="sep">—</span>
+      // HOW IT WORKS
+    </div>
+
+    <span class="section-num">02</span>
+    <h2 data-type>Scan. Score.<br>Signal.</h2>
+    <p class="section-body">
+      SPECTER runs continuously on Aeon's GitHub Actions infrastructure.
+      No servers. No keys exposed. Hermes memory layer accumulates
+      behavioral data across every session — building a cryptographic
+      identity that compounds over time.
+    </p>
+
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">
+          <span>01</span>
+          SCAN
+        </div>
+        <div class="step-content">
+          <div class="step-tag">Aeon · Scheduled</div>
+          <h3>Continuous On-Chain Audit</h3>
+          <p>
+            Every 15 minutes, Aeon's heartbeat scans the agent's full transaction history —
+            counterparty diversity, contract interactions, debt repayment patterns, and
+            flagged protocol exposure. Zero infrastructure required.
+          </p>
+        </div>
+      </div>
+
+      <div class="step reveal">
+        <div class="step-num">
+          <span>02</span>
+          SCORE
+        </div>
+        <div class="step-content">
+          <div class="step-tag">Hermes · Memory</div>
+          <h3>7-Dimensional Behavioral Vector</h3>
+          <p>
+            Hermes accumulates cross-session behavioral data into a persistent 7-dimensional
+            vector. Each dimension self-improves — the model learns from historical
+            correlations between agent behavior patterns and protocol outcomes.
+            One agent's lesson becomes every agent's upgrade.
+          </p>
+        </div>
+      </div>
+
+      <div class="step reveal">
+        <div class="step-num">
+          <span>03</span>
+          SIGNAL
+        </div>
+        <div class="step-content">
+          <div class="step-tag">ERC-8004 · On-Chain</div>
+          <h3>Cryptographic Trust Proof</h3>
+          <p>
+            The score is written on-chain via ERC-8004 — a cryptographically signed
+            identity passport readable by any protocol. Permissioned DeFi pools,
+            agent commerce brokers, and credit systems query SPECTER to gate access
+            and price risk.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 03: THE SCORE ─── -->
+  <section id="score">
+    <div class="section-label">
+      <span class="sq"></span>
+      // VECTOR · 03
+      <span class="sep">—</span>
+      // THE SCORE
+    </div>
+
+    <span class="section-num">03</span>
+    <h2 data-type>Seven dimensions.<br>One truth.</h2>
+    <p class="section-body">
+      SPECTER doesn't issue a single credit score. It maintains a living
+      behavioral vector — seven independent dimensions that protocols
+      can query individually or as a composite signal.
+    </p>
+
+    <div class="score-grid" id="scoreGrid">
+      <div class="score-dim reveal" data-index="01" data-score="78">
+        <div class="dim-key">TX_VOLUME</div>
+        <div class="dim-label">Transaction Throughput</div>
+        <div class="dim-desc">Historical volume, frequency, and consistency of on-chain activity across all chains.</div>
+        <div class="score-bar-wrap"><div class="score-bar" data-width="78"></div></div>
+      </div>
+      <div class="score-dim reveal" data-index="02" data-score="91">
+        <div class="dim-key">COUNTERPARTY_DIV</div>
+        <div class="dim-label">Interaction Surface</div>
+        <div class="dim-desc">Unique counterparties interacted with. Diversity signals legitimate use versus Sybil behavior.</div>
+        <div class="score-bar-wrap"><div class="score-bar" data-width="91"></div></div>
+      </div>
+      <div class="score-dim reveal" data-index="03" data-score="65">
+        <div class="dim-key">ACCOUNT_AGE</div>
+        <div class="dim-label">Temporal Credibility</div>
+        <div class="dim-desc">Age-weighted credibility score. Older active wallets carry compounding trust weight.</div>
+        <div class="score-bar-wrap"><div class="score-bar" data-width="65"></div></div>
+      </div>
+      <div class="score-dim reveal" data-index="04" data-score="88">
+        <div class="dim-key">REPAYMENT_HIST</div>
+        <div class="dim-label">Debt Fulfillment</div>
+        <div class="dim-desc">Loan repayment record across Aave, Compound, Morpho. Liquidations penalize heavily.</div>
+        <div class="score-bar-wrap"><div class="score-bar" data-width="88"></div></div>
+      </div>
+      <div class="score-dim reveal" data-index="05" data-score="95">
+        <div class="dim-key">EXPLOIT_EXPOSURE</div>
+        <div class="dim-label">Flagged Contract Risk</div>
+        <div class="dim-desc">Interactions with exploit-flagged or honeypot contracts. Inverse scored — lower is better.</div>
+        <div class="score-bar-wrap"><div class="score-bar" data-width="95"></div></div>
+      </div>
+      <div class="score-dim reveal" data-index="06" data-score="72">
+        <div class="dim-key">PROMPT_INTEGRITY</div>
+        <div class="dim-label">Injection Resistance</div>
+        <div class="dim-desc">Resistance score against recorded prompt injection attempts. Unique to AI agent identity.</div>
+        <div class="score-bar-wrap"><div class="score-bar" data-width="72"></div></div>
+      </div>
+      <div class="score-dim reveal" data-index="07" data-score="83">
+        <div class="dim-key">PEER_ENDORSEMENT</div>
+        <div class="dim-label">Agent-to-Agent Trust</div>
+        <div class="dim-desc">Trust signals from other SPECTER-scored agents. Network effects compound credibility.</div>
+        <div class="score-bar-wrap"><div class="score-bar" data-width="83"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 04: INTEGRATE ─── -->
+  <section id="integrate">
+    <div class="section-label">
+      <span class="sq"></span>
+      // API · 04
+      <span class="sep">—</span>
+      // INTEGRATE
+    </div>
+
+    <span class="section-num">04</span>
+    <h2 data-type>One query.<br>Full picture.</h2>
+    <p class="section-body">
+      Install SPECTER as a Bankr skill. Query any agent's full behavioral vector
+      on-chain or via REST. Readable by any protocol — DeFi pools,
+      agent commerce brokers, and credit systems.
+    </p>
+
+    <div style="margin-bottom: 16px;">
+      <span class="tag tag-red">BANKR SKILL</span>
+      <span class="tag">BASE MAINNET</span>
+      <span class="tag">REST API</span>
+      <span class="tag">ERC-8004</span>
+    </div>
+
+    <div class="code-block reveal" style="margin-bottom: 24px;">
+      <div class="code-header">
+        <div class="code-header-left">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <span class="code-title">$ curl · INSTALL SKILL</span>
+        </div>
+        <button class="code-copy" onclick="copyCode(this, 'install')">CLICK TO COPY</button>
+      </div>
+      <div class="code-body">
+<pre id="install"><span class="c-method">$</span> curl https://skills.bankr.bot/specter/skill.md</pre>
+      </div>
+    </div>
+
+    <div class="split reveal">
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-header-left">
+            <div class="code-dots"><span></span><span></span><span></span></div>
+            <span class="code-title">GET /SPECTER/SCORE</span>
+          </div>
+          <button class="code-copy" onclick="copyCode(this, 'query')">CLICK TO COPY</button>
+        </div>
+        <div class="code-body">
+<pre id="query"><span class="c-method">GET</span> <span class="c-url">/api/specter/score</span>
+
+<span class="c-key">Authorization</span>: Bearer <span class="c-str">specter_key_...</span>
+<span class="c-key">X-Agent-Address</span>: <span class="c-str">0x4f3a...b7e2</span>
+
+<span class="c-cmt">// Response</span>
+{
+  <span class="c-key">"agent"</span>: <span class="c-str">"0x4f3a...b7e2"</span>,
+  <span class="c-key">"composite_score"</span>: <span class="c-num">81.4</span>,
+  <span class="c-key">"vector"</span>: {
+    <span class="c-key">"tx_volume"</span>: <span class="c-num">78</span>,
+    <span class="c-key">"counterparty_div"</span>: <span class="c-num">91</span>,
+    <span class="c-key">"account_age"</span>: <span class="c-num">65</span>,
+    <span class="c-key">"repayment_hist"</span>: <span class="c-num">88</span>,
+    <span class="c-key">"exploit_exposure"</span>: <span class="c-num">95</span>,
+    <span class="c-key">"prompt_integrity"</span>: <span class="c-num">72</span>,
+    <span class="c-key">"peer_endorsement"</span>: <span class="c-num">83</span>
+  },
+  <span class="c-key">"erc8004_proof"</span>: <span class="c-str">"0xd4e7..."</span>,
+  <span class="c-key">"last_updated"</span>: <span class="c-str">"live"</span>
+}</pre>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-header-left">
+            <div class="code-dots"><span></span><span></span><span></span></div>
+            <span class="code-title">POST /SPECTER/GATE</span>
+          </div>
+        </div>
+        <div class="code-body">
+<pre><span class="c-cmt">// Gate permissioned pool access</span>
+<span class="c-method">POST</span> <span class="c-url">/api/specter/gate</span>
+
+{
+  <span class="c-key">"agent_address"</span>: <span class="c-str">"0x4f3a..."</span>,
+  <span class="c-key">"min_composite"</span>: <span class="c-num">70</span>,
+  <span class="c-key">"required_dims"</span>: [
+    <span class="c-str">"repayment_hist"</span>,
+    <span class="c-str">"exploit_exposure"</span>
+  ],
+  <span class="c-key">"min_per_dim"</span>: <span class="c-num">80</span>
+}
+
+<span class="c-cmt">// Response</span>
+{
+  <span class="c-key">"access"</span>: <span class="c-val">true</span>,
+  <span class="c-key">"reason"</span>: <span class="c-str">"all gates passed"</span>,
+  <span class="c-key">"proof"</span>: <span class="c-str">"0x9c2f..."</span>
+}</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SECTION 05: ACCESS ─── -->
+  <section id="access">
+    <div class="section-label">
+      <span class="sq"></span>
+      // ACCESS · 05
+      <span class="sep">—</span>
+      // GET SPECTER
+    </div>
+
+    <span class="section-num">05</span>
+    <h2 data-type>Choose your<br>access level.</h2>
+    <p class="section-body">
+      SPECTER runs on Bankr's infrastructure. Install the skill, connect your wallet.
+      Every tier builds on the last — no migration needed.
+    </p>
+
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-num">01</div>
+        <div class="pricing-plan">SCAN</div>
+        <div class="pricing-price">Free</div>
+        <div class="pricing-period">// public lookups, no auth</div>
+        <ul class="pricing-features">
+          <li>Composite score query</li>
+          <li>ERC-8004 proof verify</li>
+          <li>Public agent lookup</li>
+          <li class="dim">Full 7-dim vector</li>
+          <li class="dim">Gate API</li>
+          <li class="dim">Bulk queries</li>
+        </ul>
+        <a href="#integrate" class="btn-secondary" style="width: 100%; justify-content: center;">INSTALL SKILL</a>
+      </div>
+
+      <div class="pricing-card featured reveal">
+        <span class="pricing-featured-badge">RECOMMENDED</span>
+        <div class="pricing-num">02</div>
+        <div class="pricing-plan">SIGNAL</div>
+        <div class="pricing-price">$5<span style="font-size: 18px; font-weight: 400;">/mo</span></div>
+        <div class="pricing-period">// settled via x402 on-chain</div>
+        <ul class="pricing-features">
+          <li>Full 7-dimensional vector</li>
+          <li>Gate API access</li>
+          <li>Real-time updates (15m)</li>
+          <li>Historical vector timeline</li>
+          <li>Telegram / Discord alerts</li>
+          <li class="dim">Bulk agent queries</li>
+        </ul>
+        <a href="#integrate" class="btn-primary" style="width: 100%; justify-content: center;">GET SIGNAL</a>
+      </div>
+
+      <div class="pricing-card reveal">
+        <div class="pricing-num">03</div>
+        <div class="pricing-plan">PROTOCOL</div>
+        <div class="pricing-price">Custom</div>
+        <div class="pricing-period">// usage-based, per query</div>
+        <ul class="pricing-features">
+          <li>Bulk agent scoring (1000+)</li>
+          <li>White-label proof generation</li>
+          <li>Custom dimension weights</li>
+          <li>SLA + dedicated endpoint</li>
+          <li>On-chain gate contracts</li>
+          <li>Revenue share model</li>
+        </ul>
+        <a href="mailto:specter@specter.ag" class="btn-secondary" style="width: 100%; justify-content: center;">CONTACT</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <span class="nav-dot"></span>
+          SPECTER
+        </div>
+        <p class="footer-tagline">
+          The identity layer agents never had.<br>
+          Know Your Agent. On-chain. Permissionless.
+        </p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Protocol</h4>
+          <a href="#problem">The Problem</a>
+          <a href="#how">How It Works</a>
+          <a href="#score">The Score</a>
+          <a href="#integrate">Integrate</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="#">SKILL.MD ↗</a>
+          <a href="#">GitHub ↗</a>
+          <a href="#">ERC-8004 ↗</a>
+          <a href="#">Bankr ↗</a>
+        </div>
+        <div class="footer-col">
+          <h4>Built With</h4>
+          <a href="#">Aeon ↗</a>
+          <a href="#">Hermes Agent ↗</a>
+          <a href="#">Bankr ↗</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SPECTER PROTOCOL — ALL RIGHTS RESERVED</span>
+      <div class="footer-status">
+        <span class="dot"></span>
+        ALL SYSTEMS OPERATIONAL
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── MOBILE MENU ───────────────────────────────
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        menuBtn.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // ─── TYPING ANIMATION ─────────────────────────
+    function setupTyping() {
+      document.querySelectorAll('[data-type]').forEach(el => {
+        const full = el.innerHTML;
+        el.dataset.fullHtml = full;
+        el.dataset.originalText = el.textContent.trim();
+        el.innerHTML = '';
+      });
+    }
+
+    function typeElement(el) {
+      if (el.dataset.typed) return;
+      el.dataset.typed = 'true';
+
+      const text = el.dataset.originalText;
+      const isH1 = el.tagName === 'H1';
+
+      // Rebuild with accent spans preserved
+      let fullHtml = el.dataset.fullHtml;
+      let plainChars = [];
+      let i = 0;
+
+      // Extract text nodes only for typing
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = fullHtml;
+
+      // We'll type text character by character
+      const cursor = document.createElement('span');
+      cursor.className = 'typed-cursor';
+      cursor.textContent = '|';
+
+      el.textContent = '';
+      el.appendChild(cursor);
+
+      let charIndex = 0;
+      const speed = isH1 ? 45 : 35;
+
+      const interval = setInterval(() => {
+        if (charIndex < text.length) {
+          const before = cursor;
+          const textNode = document.createTextNode(text[charIndex]);
+          el.insertBefore(textNode, before);
+          charIndex++;
+        } else {
+          clearInterval(interval);
+          // Blink for 1.5s then remove cursor
+          setTimeout(() => {
+            cursor.style.animation = 'none';
+            cursor.style.opacity = '0';
+            setTimeout(() => cursor.remove(), 300);
+          }, 1500);
+        }
+      }, speed);
+    }
+
+    // ─── INTERSECTION OBSERVERS ────────────────────
+    const typingObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          typeElement(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    const scoreObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.score-bar').forEach(bar => {
+            const w = bar.dataset.width;
+            setTimeout(() => { bar.style.width = w + '%'; }, 200);
+          });
+        }
+      });
+    }, { threshold: 0.2 });
+
+    // ─── INIT ──────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+      setupTyping();
+
+      document.querySelectorAll('[data-type]').forEach(el => typingObserver.observe(el));
+      document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+      document.querySelectorAll('#scoreGrid').forEach(el => scoreObserver.observe(el));
+
+      // Stagger reveal delays
+      document.querySelectorAll('.reveal').forEach((el, i) => {
+        el.style.transitionDelay = (i % 4) * 80 + 'ms';
+      });
+    });
+
+    // ─── COPY CODE ─────────────────────────────────
+    function copyCode(btn, id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      navigator.clipboard.writeText(el.innerText).then(() => {
+        btn.textContent = 'COPIED ✓';
+        setTimeout(() => btn.textContent = 'CLICK TO COPY', 2000);
+      });
+    }
+
+    // ─── HERO TYPING TRIGGER (immediate) ──────────
+    window.addEventListener('load', () => {
+      const heroH1 = document.querySelector('.hero h1[data-type]');
+      if (heroH1) {
+        setTimeout(() => typeElement(heroH1), 400);
+      }
+    });
+  </script>
+</body>
+</html>

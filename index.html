@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WRAITH — Know Your Agent</title>
+  <title>SPECTER — Know Your Agent</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -982,7 +982,7 @@
   <nav>
     <a href="#" class="nav-logo">
       <span class="nav-dot"></span>
-      WRAITH
+      SPECTER
     </a>
     <div class="nav-right">
       <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">
@@ -1113,7 +1113,7 @@
               </div>
             </div>
             <div class="code-body">
-<pre><span class="c-cmt">// WITHOUT WRAITH</span>
+<pre><span class="c-cmt">// WITHOUT SPECTER</span>
 {
   <span class="c-key">"address"</span>: <span class="c-str">"0x4f3a...b7e2"</span>,
   <span class="c-key">"balance"</span>: <span class="c-num">2.4</span> ETH,
@@ -1147,7 +1147,7 @@
     <span class="section-num">02</span>
     <h2 data-type>Scan. Score.<br>Signal.</h2>
     <p class="section-body">
-      WRAITH runs continuously on Aeon's GitHub Actions infrastructure.
+      SPECTER runs continuously on Aeon's GitHub Actions infrastructure.
       No servers. No keys exposed. Hermes memory layer accumulates
       behavioral data across every session — building a cryptographic
       identity that compounds over time.
@@ -1198,7 +1198,7 @@
           <p>
             The score is written on-chain via ERC-8004 — a cryptographically signed
             identity passport readable by any protocol. Permissioned DeFi pools,
-            agent commerce brokers, and credit systems query WRAITH to gate access
+            agent commerce brokers, and credit systems query SPECTER to gate access
             and price risk.
           </p>
         </div>
@@ -1218,7 +1218,7 @@
     <span class="section-num">03</span>
     <h2 data-type>Seven dimensions.<br>One truth.</h2>
     <p class="section-body">
-      WRAITH doesn't issue a single credit score. It maintains a living
+      SPECTER doesn't issue a single credit score. It maintains a living
       behavioral vector — seven independent dimensions that protocols
       can query individually or as a composite signal.
     </p>
@@ -1263,7 +1263,7 @@
       <div class="score-dim reveal" data-index="07" data-score="83">
         <div class="dim-key">PEER_ENDORSEMENT</div>
         <div class="dim-label">Agent-to-Agent Trust</div>
-        <div class="dim-desc">Trust signals from other WRAITH-scored agents. Network effects compound credibility.</div>
+        <div class="dim-desc">Trust signals from other SPECTER-scored agents. Network effects compound credibility.</div>
         <div class="score-bar-wrap"><div class="score-bar" data-width="83"></div></div>
       </div>
     </div>
@@ -1281,7 +1281,7 @@
     <span class="section-num">04</span>
     <h2 data-type>One query.<br>Full picture.</h2>
     <p class="section-body">
-      Install WRAITH as a Bankr skill. Query any agent's full behavioral vector
+      Install SPECTER as a Bankr skill. Query any agent's full behavioral vector
       on-chain or via REST. Readable by any protocol — DeFi pools,
       agent commerce brokers, and credit systems.
     </p>
@@ -1302,7 +1302,7 @@
         <button class="code-copy" onclick="copyCode(this, 'install')">CLICK TO COPY</button>
       </div>
       <div class="code-body">
-<pre id="install"><span class="c-method">$</span> curl https://skills.bankr.bot/wraith/skill.md</pre>
+<pre id="install"><span class="c-method">$</span> curl https://skills.bankr.bot/specter/skill.md</pre>
       </div>
     </div>
 
@@ -1311,14 +1311,14 @@
         <div class="code-header">
           <div class="code-header-left">
             <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-title">GET /WRAITH/SCORE</span>
+            <span class="code-title">GET /SPECTER/SCORE</span>
           </div>
           <button class="code-copy" onclick="copyCode(this, 'query')">CLICK TO COPY</button>
         </div>
         <div class="code-body">
-<pre id="query"><span class="c-method">GET</span> <span class="c-url">/api/wraith/score</span>
+<pre id="query"><span class="c-method">GET</span> <span class="c-url">/api/specter/score</span>
 
-<span class="c-key">Authorization</span>: Bearer <span class="c-str">wraith_key_...</span>
+<span class="c-key">Authorization</span>: Bearer <span class="c-str">specter_key_...</span>
 <span class="c-key">X-Agent-Address</span>: <span class="c-str">0x4f3a...b7e2</span>
 
 <span class="c-cmt">// Response</span>
@@ -1344,12 +1344,12 @@
         <div class="code-header">
           <div class="code-header-left">
             <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-title">POST /WRAITH/GATE</span>
+            <span class="code-title">POST /SPECTER/GATE</span>
           </div>
         </div>
         <div class="code-body">
 <pre><span class="c-cmt">// Gate permissioned pool access</span>
-<span class="c-method">POST</span> <span class="c-url">/api/wraith/gate</span>
+<span class="c-method">POST</span> <span class="c-url">/api/specter/gate</span>
 
 {
   <span class="c-key">"agent_address"</span>: <span class="c-str">"0x4f3a..."</span>,
@@ -1378,13 +1378,13 @@
       <span class="sq"></span>
       // ACCESS · 05
       <span class="sep">—</span>
-      // GET WRAITH
+      // GET SPECTER
     </div>
 
     <span class="section-num">05</span>
     <h2 data-type>Choose your<br>access level.</h2>
     <p class="section-body">
-      WRAITH runs on Bankr's infrastructure. Install the skill, connect your wallet.
+      SPECTER runs on Bankr's infrastructure. Install the skill, connect your wallet.
       Every tier builds on the last — no migration needed.
     </p>
 
@@ -1435,7 +1435,7 @@
           <li>On-chain gate contracts</li>
           <li>Revenue share model</li>
         </ul>
-        <a href="mailto:wraith@wraith.ag" class="btn-secondary" style="width: 100%; justify-content: center;">CONTACT</a>
+        <a href="mailto:specter@specter.ag" class="btn-secondary" style="width: 100%; justify-content: center;">CONTACT</a>
       </div>
     </div>
   </section>
@@ -1446,7 +1446,7 @@
       <div>
         <div class="footer-logo">
           <span class="nav-dot"></span>
-          WRAITH
+          SPECTER
         </div>
         <p class="footer-tagline">
           The identity layer agents never had.<br>
@@ -1477,7 +1477,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 WRAITH PROTOCOL — ALL RIGHTS RESERVED</span>
+      <span>© 2026 SPECTER PROTOCOL — ALL RIGHTS RESERVED</span>
       <div class="footer-status">
         <span class="dot"></span>
         ALL SYSTEMS OPERATIONAL

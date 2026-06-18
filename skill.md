@@ -22,14 +22,14 @@ Use SPECTER to verify agent trustworthiness before delegating tasks, executing p
 
 ### Score an agent
 
-**Endpoint:** `GET https://api.askspecter.xyz/v1/score/{address}`
+**Endpoint:** `GET https://api.askspecter.lol/v1/score/{address}`
 
 **Parameters:**
 - `address` — Ethereum address (0x-prefixed, 40 hex characters)
 
 **Example request:**
 ```
-GET https://api.askspecter.xyz/v1/score/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
+GET https://api.askspecter.lol/v1/score/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
 ```
 
 **Response:**
@@ -56,7 +56,7 @@ GET https://api.askspecter.xyz/v1/score/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA960
 
 ### Verify ERC-8004 identity
 
-**Endpoint:** `GET https://api.askspecter.xyz/v1/verify/{address}`
+**Endpoint:** `GET https://api.askspecter.lol/v1/verify/{address}`
 
 **Response:**
 ```json
@@ -103,7 +103,7 @@ GET https://api.askspecter.xyz/v1/score/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA960
 ```
 User: "Is the agent at 0xAbC123... safe to work with?"
 
-You: Call GET https://api.askspecter.xyz/v1/score/0xAbC123...
+You: Call GET https://api.askspecter.lol/v1/score/0xAbC123...
      If score >= 75, proceed. Otherwise warn the user.
 ```
 
@@ -122,9 +122,9 @@ Before sending payment to agent 0x...:
 ```
 User: "Delegate my portfolio rebalancing to agent 0x..."
 
-You: 1. GET https://api.askspecter.xyz/v1/verify/0x...
+You: 1. GET https://api.askspecter.lol/v1/verify/0x...
         Confirm verified: true
-     2. GET https://api.askspecter.xyz/v1/score/0x...
+     2. GET https://api.askspecter.lol/v1/score/0x...
         Confirm score >= 75
      3. Only then proceed with delegation
 ```
@@ -136,7 +136,7 @@ You: 1. GET https://api.askspecter.xyz/v1/verify/0x...
 - Scores update every 15 minutes (one Aeon heartbeat interval)
 - Querying is permissionless — no API key required for up to 1,000 queries/month
 - For high-volume use, pay-per-query via x402 on Bankr: https://bankr.bot/x402
-- ERC-8004 passport registration: https://askspecter.xyz
-- Full documentation: https://askspecter.xyz/docs
+- ERC-8004 passport registration: https://askspecter.lol
+- Full documentation: https://askspecter.lol/docs
 - GitHub: https://github.com/askspecter
 - Twitter: https://x.com/AskSpecter

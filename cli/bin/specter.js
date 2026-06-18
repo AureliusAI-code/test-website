@@ -125,7 +125,7 @@ async function cmdScore(addr) {
   console.log(` ${c.bold}CHAIN${c.reset}        ${c.gray}Base Mainnet · Block 21,847,392${c.reset}`);
   console.log(` ${c.bold}QUERIED${c.reset}      ${c.gray}${new Date().toISOString()}${c.reset}`);
   console.log(rule());
-  console.log(` ${c.gray}askspecter.xyz  ·  github.com/askspecter${c.reset}\n`);
+  console.log(` ${c.gray}askspecter.lol  ·  github.com/askspecter${c.reset}\n`);
 }
 
 async function cmdVerify(addr) {
@@ -155,7 +155,7 @@ async function cmdVerify(addr) {
     console.log(rule());
     console.log(` ${c.bred}✗  NOT REGISTERED${c.reset}`);
     console.log(` ${c.gray}This address has no ERC-8004 identity passport.${c.reset}`);
-    console.log(` ${c.gray}Register at: askspecter.xyz${c.reset}`);
+    console.log(` ${c.gray}Register at: askspecter.lol${c.reset}`);
     console.log(rule());
   }
   console.log();
@@ -221,7 +221,7 @@ function cmdHelp() {
    ${c.yellow}65–84${c.reset}   Review Advised
    ${c.bred}0–64${c.reset}    High Risk
 
- ${c.gray}askspecter.xyz  ·  github.com/askspecter${c.reset}
+ ${c.gray}askspecter.lol  ·  github.com/askspecter${c.reset}
 `);
 }
 

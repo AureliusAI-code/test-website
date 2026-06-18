@@ -10,7 +10,7 @@
   },
   "keywords": ["specter", "kya", "agent", "reputation", "erc-8004", "blockchain", "aeon", "hermes"],
   "license": "MIT",
-  "homepage": "https://askspecter.xyz",
+  "homepage": "https://askspecter.lol",
   "repository": {
     "type": "git",
     "url": "https://github.com/askspecter/cli"

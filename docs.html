@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPECTER Docs — Know Your Agent Protocol</title>
+  <meta name="description" content="Technical documentation for SPECTER: the KYA behavioral reputation scoring protocol for autonomous AI agents.">
+  <meta name="theme-color" content="#080808">
+
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Geist+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:      #080808;
+      --bg2:     #101010;
+      --bg3:     #181818;
+      --fg:      #f0f0f0;
+      --red:     #e53333;
+      --gray:    #888888;
+      --gray2:   #c4c4c4;
+      --dim:     #444444;
+      --border:  rgba(255,255,255,0.06);
+      --border2: rgba(255,255,255,0.11);
+      --green:   #22c55e;
+      --display: 'Space Grotesk', system-ui, sans-serif;
+      --mono:    'Geist Mono', 'Fira Code', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--red) var(--bg2);
+    }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--red); }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--mono);
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 240px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      border-right: 1px solid var(--border);
+      background: var(--bg2);
+      padding: 32px 0;
+    }
+
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 24px 28px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+      text-decoration: none;
+    }
+    .sidebar-brand img {
+      width: 28px; height: 28px;
+      border: 1px solid rgba(229,51,51,0.4);
+      border-radius: 3px;
+    }
+    .sidebar-brand span {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: .06em;
+      color: var(--fg);
+    }
+    .sidebar-brand small {
+      font-size: 9px;
+      color: var(--dim);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      display: block;
+      margin-top: 1px;
+    }
+
+    .sidebar-group { margin-bottom: 28px; }
+
+    .sidebar-label {
+      font-size: 9px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--dim);
+      padding: 0 24px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .sidebar-link {
+      display: block;
+      padding: 7px 24px;
+      font-size: 12px;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color .15s, background .15s;
+      border-left: 2px solid transparent;
+    }
+    .sidebar-link:hover { color: var(--fg); background: rgba(255,255,255,0.03); }
+    .sidebar-link.active { color: var(--red); border-left-color: var(--red); }
+
+    /* ── MAIN ── */
+    .main {
+      flex: 1;
+      max-width: 860px;
+      padding: 56px 64px 120px;
+    }
+
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      .sidebar { width: 100%; height: auto; position: static; overflow: visible; }
+      .main { padding: 32px 24px 80px; }
+    }
+
+    /* ── TYPOGRAPHY ── */
+    h1 {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 36px;
+      letter-spacing: -.02em;
+      color: var(--fg);
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: -.01em;
+      color: var(--fg);
+      margin: 56px 0 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    h2:first-of-type { margin-top: 40px; border-top: none; }
+    h3 {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--fg);
+      margin: 28px 0 10px;
+    }
+
+    .doc-lead {
+      font-size: 14px;
+      line-height: 1.85;
+      color: var(--gray2);
+      margin-bottom: 32px;
+      max-width: 620px;
+    }
+
+    p {
+      font-size: 13px;
+      line-height: 1.9;
+      color: var(--gray);
+      margin-bottom: 16px;
+    }
+
+    a { color: var(--red); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    code {
+      font-family: var(--mono);
+      font-size: 12px;
+      background: var(--bg3);
+      color: var(--red);
+      padding: 2px 7px;
+      border: 1px solid var(--border2);
+      border-radius: 3px;
+    }
+
+    pre {
+      background: var(--bg2);
+      border: 1px solid var(--border2);
+      border-left: 3px solid var(--red);
+      padding: 20px 24px;
+      overflow-x: auto;
+      margin: 16px 0 24px;
+      font-size: 12px;
+      line-height: 1.75;
+      color: var(--gray2);
+    }
+    pre code { background: none; border: none; padding: 0; color: inherit; }
+
+    .cmt { color: var(--dim); }
+    .kw  { color: var(--red); }
+    .str { color: var(--green); }
+    .num { color: #f59e0b; }
+
+    /* ── CALLOUT ── */
+    .callout {
+      border: 1px solid var(--border2);
+      border-left: 3px solid var(--red);
+      background: rgba(229,51,51,0.04);
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 12px;
+      line-height: 1.75;
+      color: var(--gray2);
+    }
+    .callout strong { color: var(--red); }
+
+    /* ── TABLE ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin: 16px 0 24px;
+    }
+    th {
+      font-size: 9px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--dim);
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border2);
+    }
+    td {
+      padding: 10px 12px;
+      color: var(--gray);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    td code { font-size: 11px; }
+    tr:hover td { color: var(--fg); }
+
+    /* ── BADGE ── */
+    .badge {
+      display: inline-block;
+      font-size: 9px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 1px solid var(--red);
+      color: var(--red);
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    /* ── DIM GRID ── */
+    .dim-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .dim-card {
+      border: 1px solid var(--border2);
+      background: var(--bg2);
+      padding: 16px 20px;
+    }
+    .dim-key {
+      font-size: 9px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+    .dim-name {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--fg);
+      margin-bottom: 6px;
+    }
+    .dim-desc {
+      font-size: 11px;
+      line-height: 1.6;
+      color: var(--dim);
+    }
+
+    /* ── SCORE BAND ── */
+    .bands { display: flex; flex-direction: column; gap: 8px; margin: 16px 0 24px; }
+    .band {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+    }
+    .band-range { width: 56px; color: var(--fg); font-weight: 700; }
+    .band-bar { flex: 1; height: 4px; background: var(--bg3); position: relative; }
+    .band-fill { position: absolute; left: 0; top: 0; height: 100%; }
+    .band-label { width: 120px; color: var(--gray); }
+
+    /* ── NAV TOP (mobile) ── */
+    .topbar {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg2);
+    }
+    .topbar img { width: 24px; height: 24px; }
+    .topbar span { font-family: var(--display); font-weight: 800; font-size: 14px; }
+    .topbar a { margin-left: auto; font-size: 12px; color: var(--gray); text-decoration: none; }
+    @media (max-width: 768px) { .topbar { display: flex; } .sidebar-brand { display: none; } }
+  </style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ── -->
+<nav class="sidebar">
+  <a href="index.html" class="sidebar-brand">
+    <img src="favicon-32x32.png" alt="SPECTER">
+    <div>
+      <span>SPECTER</span>
+      <small>Documentation</small>
+    </div>
+  </a>
+
+  <div class="sidebar-group">
+    <span class="sidebar-label">Getting Started</span>
+    <a href="#overview"      class="sidebar-link active">Overview</a>
+    <a href="#quickstart"    class="sidebar-link">Quick Start</a>
+    <a href="#install"       class="sidebar-link">Install Skill.md</a>
+  </div>
+
+  <div class="sidebar-group">
+    <span class="sidebar-label">Protocol</span>
+    <a href="#scoring"       class="sidebar-link">Scoring Engine</a>
+    <a href="#dimensions"    class="sidebar-link">7 Dimensions</a>
+    <a href="#score-bands"   class="sidebar-link">Score Bands</a>
+    <a href="#erc-8004"      class="sidebar-link">ERC-8004</a>
+  </div>
+
+  <div class="sidebar-group">
+    <span class="sidebar-label">Integration</span>
+    <a href="#aeon"          class="sidebar-link">Aeon Integration</a>
+    <a href="#hermes"        class="sidebar-link">Hermes Integration</a>
+    <a href="#bankr"         class="sidebar-link">Bankr Skills</a>
+    <a href="#api"           class="sidebar-link">API Reference</a>
+  </div>
+
+  <div class="sidebar-group">
+    <span class="sidebar-label">Reference</span>
+    <a href="#cli"           class="sidebar-link">CLI Reference</a>
+    <a href="#faq"           class="sidebar-link">FAQ</a>
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ── -->
+<main class="main">
+
+  <div class="topbar">
+    <img src="favicon-32x32.png" alt="SPECTER">
+    <span>SPECTER</span>
+    <a href="index.html">← Back</a>
+  </div>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <h1>SPECTER Docs <span class="badge">v1.0</span></h1>
+    <p class="doc-lead">
+      SPECTER is a Know Your Agent (KYA) behavioral reputation scoring protocol for autonomous AI agents.
+      It computes a 7-dimensional trust score from on-chain activity, cross-session memory, and peer endorsements —
+      all anchored to an immutable ERC-8004 identity passport on Base mainnet.
+    </p>
+
+    <div class="callout">
+      <strong>Early Access</strong> — SPECTER is live on Base mainnet. The scoring engine, CLI, and Bankr Skill are available now. ERC-8004 passport registration opens Q3 2026.
+    </div>
+
+    <h3>Why SPECTER?</h3>
+    <p>Autonomous agents transact, delegate, and coordinate without human oversight. Without a reputation layer, there's no way to distinguish a trustworthy agent from a compromised one before it acts. SPECTER fills this gap with a verifiable, on-chain score derived from behavioral signals — not self-reported claims.</p>
+
+    <table>
+      <thead><tr><th>Feature</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>On-chain</td><td>Scores anchored to ERC-8004 identity on Base mainnet</td></tr>
+        <tr><td>Permissionless</td><td>Query any address — no API key, no signup required</td></tr>
+        <tr><td>Self-improving</td><td>Model retrains on new behavioral data each epoch</td></tr>
+        <tr><td>Multi-chain</td><td>Aggregates signals from Base, Ethereum, Arbitrum, Optimism</td></tr>
+        <tr><td>Bankr native</td><td>Drop-in Bankr Skill — install in 30 seconds</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- QUICKSTART -->
+  <section id="quickstart">
+    <h2>Quick Start</h2>
+    <p>The fastest way to integrate SPECTER is via the Bankr Skill. It takes 30 seconds and requires no infrastructure.</p>
+
+    <h3>1. Fetch the Skill</h3>
+    <pre><code><span class="cmt"># Fetch SPECTER's SKILL.MD into your agent</span>
+$ curl https://skills.bankr.bot/specter/skill.md</code></pre>
+
+    <h3>2. Score an agent</h3>
+    <pre><code><span class="cmt"># Natural language — your agent handles the rest</span>
+"Score the agent at 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+
+<span class="cmt"># Returns structured JSON</span>
+{
+  <span class="str">"address"</span>: <span class="str">"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"</span>,
+  <span class="str">"score"</span>: <span class="num">82</span>,
+  <span class="str">"verdict"</span>: <span class="str">"TRUSTED_AGENT"</span>,
+  <span class="str">"dimensions"</span>: { ... },
+  <span class="str">"passport"</span>: <span class="str">"0x4a2b...c91f"</span>,
+  <span class="str">"chain"</span>: <span class="str">"base"</span>
+}</code></pre>
+
+    <h3>3. Gate on score</h3>
+    <pre><code><span class="cmt"># Only proceed if SPECTER score ≥ 75</span>
+<span class="kw">if</span> (specter.score &lt; <span class="num">75</span>) {
+  <span class="kw">throw</span> <span class="kw">new</span> Error(<span class="str">"Agent trust score below threshold"</span>);
+}</code></pre>
+  </section>
+
+  <!-- INSTALL -->
+  <section id="install">
+    <h2>Install Skill.md</h2>
+    <p>SPECTER is packaged as a <a href="https://bankr.bot" target="_blank">Bankr Skill</a> — a SKILL.MD file that teaches your agent how to query the protocol.</p>
+
+    <pre><code>$ curl https://skills.bankr.bot/specter/skill.md</code></pre>
+
+    <p>Add it to your Aeon agent by placing the file in your skills directory, or paste it directly into your Hermes agent's system context. SPECTER requires no API keys — it queries Base mainnet directly.</p>
+
+    <div class="callout">
+      <strong>Tip:</strong> You can also install via the SPECTER website — click "Get Skill.md" and copy the curl command.
+    </div>
+  </section>
+
+  <!-- SCORING ENGINE -->
+  <section id="scoring">
+    <h2>Scoring Engine</h2>
+    <p>SPECTER computes a composite trust score in the range 0–100 by evaluating seven behavioral dimensions. Each dimension is scored independently, then combined using a weighted average:</p>
+
+    <pre><code>score = Σ (dimension_score × weight) / Σ weights</code></pre>
+
+    <table>
+      <thead><tr><th>Dimension</th><th>Weight</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td><code>TX_VOLUME</code></td><td>1.0×</td><td>On-chain transaction history</td></tr>
+        <tr><td><code>COUNTERPARTY_DIV</code></td><td>1.2×</td><td>Unique counterparty graph</td></tr>
+        <tr><td><code>ACCOUNT_AGE</code></td><td>0.8×</td><td>First transaction timestamp</td></tr>
+        <tr><td><code>REPAYMENT_HIST</code></td><td>1.3×</td><td>Debt protocol repayment records</td></tr>
+        <tr><td><code>EXPLOIT_EXPOSURE</code></td><td>1.5×</td><td>Interaction with flagged contracts</td></tr>
+        <tr><td><code>PROMPT_INTEGRITY</code></td><td>1.4×</td><td>Hermes cross-session memory logs</td></tr>
+        <tr><td><code>PEER_ENDORSEMENT</code></td><td>1.1×</td><td>Agent-to-agent endorsement graph</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- DIMENSIONS -->
+  <section id="dimensions">
+    <h2>7 Dimensions</h2>
+    <p>Each of the seven dimensions captures a distinct axis of agent behavior. Together they form a behavioral fingerprint that cannot be gamed without changing the underlying on-chain activity.</p>
+
+    <div class="dim-grid">
+      <div class="dim-card">
+        <div class="dim-key">TX_VOLUME</div>
+        <div class="dim-name">Transaction Throughput</div>
+        <div class="dim-desc">Volume and consistency of on-chain transactions over time. Sparse or bursty patterns indicate low credibility.</div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-key">COUNTERPARTY_DIV</div>
+        <div class="dim-name">Interaction Surface</div>
+        <div class="dim-desc">Diversity of counterparties and contract types. Narrow interaction graphs suggest single-purpose or test agents.</div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-key">ACCOUNT_AGE</div>
+        <div class="dim-name">Temporal Credibility</div>
+        <div class="dim-desc">Time since first on-chain activity. New addresses are penalized — reputation takes time to establish.</div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-key">REPAYMENT_HIST</div>
+        <div class="dim-name">Debt Fulfillment</div>
+        <div class="dim-desc">History of repayments on lending and credit protocols (Aave, Compound, Morpho). Defaults are heavily penalized.</div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-key">EXPLOIT_EXPOSURE</div>
+        <div class="dim-name">Flagged Contract Risk</div>
+        <div class="dim-desc">Interactions with contracts flagged by Forta, Hypernative, or SPECTER's own exploit registry. Even indirect exposure is scored.</div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-key">PROMPT_INTEGRITY</div>
+        <div class="dim-name">Injection Resistance</div>
+        <div class="dim-desc">Derived from Hermes cross-session memory: frequency of prompt injection attempts detected in historical sessions.</div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-key">PEER_ENDORSEMENT</div>
+        <div class="dim-name">Agent-to-Agent Trust</div>
+        <div class="dim-desc">Endorsements from other trusted agents in the SPECTER network. Weighted by the endorser's own score.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCORE BANDS -->
+  <section id="score-bands">
+    <h2>Score Bands</h2>
+    <p>SPECTER scores map to three risk tiers. We recommend using 75 as a default gate for high-value operations.</p>
+
+    <div class="bands">
+      <div class="band">
+        <span class="band-range" style="color:#22c55e">85–100</span>
+        <div class="band-bar"><div class="band-fill" style="width:100%;background:#22c55e"></div></div>
+        <span class="band-label" style="color:#22c55e">Trusted Agent</span>
+      </div>
+      <div class="band">
+        <span class="band-range" style="color:#f59e0b">65–84</span>
+        <div class="band-bar"><div class="band-fill" style="width:72%;background:#f59e0b"></div></div>
+        <span class="band-label" style="color:#f59e0b">Review Advised</span>
+      </div>
+      <div class="band">
+        <span class="band-range" style="color:#e53333">0–64</span>
+        <div class="band-bar"><div class="band-fill" style="width:40%;background:#e53333"></div></div>
+        <span class="band-label" style="color:#e53333">High Risk</span>
+      </div>
+    </div>
+
+    <p>Scores update every 15 minutes (one Aeon heartbeat interval). Sudden drops in score trigger a <code>SCORE_DELTA</code> event that subscribed agents can react to in real time.</p>
+  </section>
+
+  <!-- ERC-8004 -->
+  <section id="erc-8004">
+    <h2>ERC-8004 <span class="badge">Live on Base</span></h2>
+    <p>ERC-8004 is an on-chain identity standard for autonomous AI agents. It provides a canonical on-chain passport that links an agent's Ethereum address to its behavioral history, capability manifest, and SPECTER score.</p>
+
+    <h3>Passport structure</h3>
+    <pre><code><span class="kw">struct</span> AgentPassport {
+  address owner;          <span class="cmt">// controlling EOA or contract</span>
+  bytes32 manifestHash;   <span class="cmt">// IPFS hash of SKILL.MD / capability manifest</span>
+  uint32  spectreScore;   <span class="cmt">// latest SPECTER score (0–100)</span>
+  uint64  registeredAt;   <span class="cmt">// block timestamp of registration</span>
+  uint64  lastUpdate;     <span class="cmt">// last score update block</span>
+  bool    verified;       <span class="cmt">// passed KYA baseline checks</span>
+}</code></pre>
+
+    <h3>Verification</h3>
+    <pre><code><span class="cmt">// Solidity — check before delegating to an agent</span>
+<span class="kw">import</span> <span class="str">"@specter/erc8004/IAgentRegistry.sol"</span>;
+
+IAgentRegistry registry = IAgentRegistry(<span class="num">0x...</span>);
+AgentPassport memory p = registry.getPassport(agentAddress);
+
+<span class="kw">require</span>(p.verified, <span class="str">"Agent not ERC-8004 verified"</span>);
+<span class="kw">require</span>(p.spectreScore &gt;= <span class="num">75</span>, <span class="str">"Agent score below threshold"</span>);</code></pre>
+
+    <div class="callout">
+      <strong>Mainnet address:</strong> ERC-8004 registry is deployed on Base mainnet. Registration opens Q3 2026 — follow <a href="https://x.com/AskSpecter" target="_blank">@AskSpecter</a> for the announcement.
+    </div>
+  </section>
+
+  <!-- AEON -->
+  <section id="aeon">
+    <h2>Aeon Integration</h2>
+    <p><a href="https://github.com/aaronjmars/aeon" target="_blank">Aeon</a> is an autonomous agent framework built on GitHub Actions. SPECTER ships as a first-class Aeon skill, callable from any workflow step.</p>
+
+    <pre><code><span class="cmt"># .github/workflows/score.yml</span>
+- <span class="kw">name</span>: Score counterparty agent
+  <span class="kw">uses</span>: askspecter/aeon-skill@v1
+  <span class="kw">with</span>:
+    address: ${{ env.AGENT_ADDRESS }}
+    threshold: <span class="num">75</span>
+    fail_below_threshold: <span class="kw">true</span></code></pre>
+
+    <p>The skill posts a <code>SPECTER_SCORE</code> artifact to the workflow run, which downstream steps can consume.</p>
+  </section>
+
+  <!-- HERMES -->
+  <section id="hermes">
+    <h2>Hermes Integration</h2>
+    <p><a href="https://github.com/NousResearch/hermes-agent" target="_blank">Hermes</a> is a self-improving Python agent with cross-session memory. SPECTER integrates directly with Hermes to contribute <code>PROMPT_INTEGRITY</code> signals from session logs.</p>
+
+    <pre><code><span class="kw">from</span> specter <span class="kw">import</span> HermesIntegration
+
+specter = HermesIntegration(agent_address=<span class="str">"0x..."</span>)
+
+<span class="cmt"># Called automatically after each session</span>
+specter.submit_session_log(session_id, log_hash)</code></pre>
+  </section>
+
+  <!-- BANKR -->
+  <section id="bankr">
+    <h2>Bankr Skills</h2>
+    <p>SPECTER is available as a <a href="https://bankr.bot" target="_blank">Bankr Skill</a> — the plug-and-play capability format for agents on the Bankr platform. Install it once and any Bankr-powered agent can score any address.</p>
+
+    <pre><code>$ curl https://skills.bankr.bot/specter/skill.md</code></pre>
+
+    <p>SPECTER also supports <a href="https://bankr.bot/x402" target="_blank">x402 micropayments</a> — pay-per-query pricing for high-volume integrations. This is optional; the default free tier covers 1,000 queries/month.</p>
+  </section>
+
+  <!-- API -->
+  <section id="api">
+    <h2>API Reference</h2>
+
+    <h3>GET /score/:address</h3>
+    <pre><code>GET https://api.askspecter.xyz/v1/score/0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
+
+<span class="cmt">// Response</span>
+{
+  <span class="str">"address"</span>:  <span class="str">"0xd8dA..."</span>,
+  <span class="str">"score"</span>:    <span class="num">82</span>,
+  <span class="str">"verdict"</span>:  <span class="str">"TRUSTED_AGENT"</span>,
+  <span class="str">"chain"</span>:    <span class="str">"base"</span>,
+  <span class="str">"block"</span>:    <span class="num">21847392</span>,
+  <span class="str">"passport"</span>: <span class="str">"0x4a2b...c91f"</span>,
+  <span class="str">"dimensions"</span>: {
+    <span class="str">"TX_VOLUME"</span>:        <span class="num">78</span>,
+    <span class="str">"COUNTERPARTY_DIV"</span>: <span class="num">91</span>,
+    <span class="str">"ACCOUNT_AGE"</span>:     <span class="num">65</span>,
+    <span class="str">"REPAYMENT_HIST"</span>:   <span class="num">88</span>,
+    <span class="str">"EXPLOIT_EXPOSURE"</span>: <span class="num">95</span>,
+    <span class="str">"PROMPT_INTEGRITY"</span>: <span class="num">72</span>,
+    <span class="str">"PEER_ENDORSEMENT"</span>: <span class="num">83</span>
+  },
+  <span class="str">"cached_at"</span>: <span class="str">"2026-06-18T02:15:11Z"</span>
+}</code></pre>
+
+    <h3>GET /verify/:address</h3>
+    <pre><code>GET https://api.askspecter.xyz/v1/verify/0xd8dA...
+
+<span class="cmt">// Response</span>
+{
+  <span class="str">"address"</span>:    <span class="str">"0xd8dA..."</span>,
+  <span class="str">"verified"</span>:   <span class="kw">true</span>,
+  <span class="str">"passport"</span>:   <span class="str">"0x4a2b...c91f"</span>,
+  <span class="str">"registered"</span>: <span class="str">"2026-01-15T08:22:00Z"</span>
+}</code></pre>
+  </section>
+
+  <!-- CLI -->
+  <section id="cli">
+    <h2>CLI Reference</h2>
+    <p>The SPECTER CLI is a zero-dependency Node.js tool. Install globally or run directly.</p>
+
+    <pre><code><span class="cmt"># Install globally from the repo</span>
+$ cd cli && npm install -g .
+
+<span class="cmt"># Or run directly</span>
+$ node cli/bin/specter.js help</code></pre>
+
+    <table>
+      <thead><tr><th>Command</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>specter score &lt;address&gt;</code></td><td>Full 7-dimension behavioral score with bar chart</td></tr>
+        <tr><td><code>specter verify &lt;address&gt;</code></td><td>Check ERC-8004 identity passport status</td></tr>
+        <tr><td><code>specter watch &lt;address&gt;</code></td><td>Live-watch an agent for score changes (polls every 3s)</td></tr>
+        <tr><td><code>specter help</code></td><td>Show usage and dimension reference</td></tr>
+      </tbody>
+    </table>
+
+    <pre><code>$ specter score 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045
+
+ SPECTER SCORE   82 / 100
+ ────────────────────────────────────────────────────────
+ TX_VOLUME         78  ████████████████░░░░
+ COUNTERPARTY_DIV  91  ██████████████████░░
+ ACCOUNT_AGE       65  █████████████░░░░░░░
+ REPAYMENT_HIST    88  █████████████████░░░
+ EXPLOIT_EXPOSURE  95  ███████████████████░
+ PROMPT_INTEGRITY  72  ██████████████░░░░░░
+ PEER_ENDORSEMENT  83  ████████████████░░░░
+
+ VERDICT   TRUSTED AGENT
+ ERC-8004  0x4a2b...c91f
+ CHAIN     Base Mainnet · Block 21,847,392</code></pre>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <h2>FAQ</h2>
+
+    <h3>Is SPECTER free to use?</h3>
+    <p>Yes. The default tier includes 1,000 score queries per month at no cost. High-volume integrations can pay per-query via x402 micropayments on Bankr.</p>
+
+    <h3>How often do scores update?</h3>
+    <p>Scores update every 15 minutes — one Aeon heartbeat interval. Scores for highly active agents may update faster during periods of significant on-chain activity.</p>
+
+    <h3>Can I score any Ethereum address?</h3>
+    <p>Yes. SPECTER is fully permissionless — any 0x address on Base, Ethereum, Arbitrum, or Optimism can be scored. Addresses with no history receive a score of 0 with a <code>NO_HISTORY</code> flag.</p>
+
+    <h3>Is PROMPT_INTEGRITY only available for Hermes agents?</h3>
+    <p>Currently yes. PROMPT_INTEGRITY signals are sourced from Hermes cross-session memory logs. Support for other agent frameworks (Aeon, LangChain, AutoGen) is on the roadmap.</p>
+
+    <h3>What is ERC-8004?</h3>
+    <p>ERC-8004 is an Ethereum improvement proposal that defines a standard on-chain identity passport for autonomous AI agents. SPECTER is the reference implementation. See the <a href="#erc-8004">ERC-8004 section</a> for details.</p>
+  </section>
+
+</main>
+
+<script>
+  const links = document.querySelectorAll('.sidebar-link');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const match = document.querySelector(`.sidebar-link[href="#${e.target.id}"]`);
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

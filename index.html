@@ -5,6 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SPECTER — Know Your Agent</title>
   <meta name="description" content="Behavioral reputation scoring for autonomous agents. On-chain. Permissionless. Self-improving.">
+  <meta name="theme-color" content="#080808">
+
+  <!-- Favicons -->
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SPECTER — Know Your Agent">
+  <meta property="og:description" content="Behavioral reputation scoring for autonomous AI agents. On-chain. Permissionless. Self-improving.">
+  <meta property="og:image" content="favicon-512x512.png">
+  <meta property="og:url" content="https://askspecter.xyz">
+  <meta property="og:site_name" content="SPECTER">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@AskSpecter">
+  <meta name="twitter:title" content="SPECTER — Know Your Agent">
+  <meta name="twitter:description" content="Behavioral reputation scoring for autonomous AI agents. On-chain. Permissionless. Self-improving.">
+  <meta name="twitter:image" content="favicon-512x512.png">
+
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Geist+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -124,13 +148,11 @@
 
     .brand-icon {
       width: 30px; height: 30px;
-      border: 1px solid var(--red);
-      display: grid;
-      place-items: center;
-      font-family: var(--display);
-      font-weight: 800;
-      font-size: 14px;
-      color: var(--red);
+      border: 1px solid rgba(229,51,51,0.4);
+      border-radius: 3px;
+      display: block;
+      object-fit: contain;
+      background: #0a0505;
     }
 
     .nav-links {
@@ -577,35 +599,6 @@
       line-height: 1.55;
     }
 
-    /* ── MARQUEE ── */
-    .marquee {
-      overflow: hidden;
-      border-bottom: 1px solid var(--border);
-      padding: 10px 0;
-      background: var(--bg);
-      position: relative;
-      z-index: 1;
-    }
-    .marquee:hover .m-track { animation-play-state: paused; }
-    .m-track {
-      display: flex;
-      gap: 48px;
-      white-space: nowrap;
-      animation: roll 38s linear infinite;
-    }
-    @keyframes roll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-    .m-item {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--dim);
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      flex-shrink: 0;
-    }
-    .m-item .b { color: var(--red); }
 
     /* ── SECTION ── */
     .section {
@@ -1174,7 +1167,7 @@
 <!-- ── NAV ── -->
 <nav>
   <a href="#" class="nav-brand">
-    <div class="brand-icon">S</div>
+    <img src="favicon-32x32.png" alt="SPECTER" class="brand-icon">
     SPECTER
   </a>
   <div class="nav-links" id="navLinks">
@@ -1295,31 +1288,6 @@
   </div>
 </div>
 
-<!-- ── MARQUEE ── -->
-<div class="marquee">
-  <div class="m-track">
-    <span class="m-item"><span class="b">◆</span> Know Your Agent</span>
-    <span class="m-item"><span class="b">◆</span> ERC-8004</span>
-    <span class="m-item"><span class="b">◆</span> Aeon Powered</span>
-    <span class="m-item"><span class="b">◆</span> Hermes Memory Layer</span>
-    <span class="m-item"><span class="b">◆</span> Self-Improving Model</span>
-    <span class="m-item"><span class="b">◆</span> Bankr Native</span>
-    <span class="m-item"><span class="b">◆</span> Permissionless</span>
-    <span class="m-item"><span class="b">◆</span> Cross-Chain</span>
-    <span class="m-item"><span class="b">◆</span> 7-Dimensional Score</span>
-    <span class="m-item"><span class="b">◆</span> Live on Base</span>
-    <span class="m-item"><span class="b">◆</span> Know Your Agent</span>
-    <span class="m-item"><span class="b">◆</span> ERC-8004</span>
-    <span class="m-item"><span class="b">◆</span> Aeon Powered</span>
-    <span class="m-item"><span class="b">◆</span> Hermes Memory Layer</span>
-    <span class="m-item"><span class="b">◆</span> Self-Improving Model</span>
-    <span class="m-item"><span class="b">◆</span> Bankr Native</span>
-    <span class="m-item"><span class="b">◆</span> Permissionless</span>
-    <span class="m-item"><span class="b">◆</span> Cross-Chain</span>
-    <span class="m-item"><span class="b">◆</span> 7-Dimensional Score</span>
-    <span class="m-item"><span class="b">◆</span> Live on Base</span>
-  </div>
-</div>
 
 <!-- ── PROBLEM ── -->
 <section class="sec-divider" id="problem">
@@ -1597,7 +1565,7 @@
     <div class="footer-top">
       <div>
         <div class="footer-brand">
-          <div class="brand-icon" style="width:30px;height:30px;font-size:14px;">S</div>
+          <img src="favicon-32x32.png" alt="SPECTER" class="brand-icon">
           SPECTER
         </div>
         <p class="footer-desc">
@@ -1635,7 +1603,7 @@
         </div>
         <div class="footer-col">
           <h5>Standards</h5>
-          <a href="https://github.com/askspecter" target="_blank">ERC-8004 ↗</a>
+          <a href="docs.html#erc-8004">ERC-8004 ↗</a>
           <a href="https://bankr.bot/x402" target="_blank">x402 Protocol ↗</a>
           <a href="https://agentcommunicationprotocol.dev" target="_blank">ACP Protocol ↗</a>
         </div>

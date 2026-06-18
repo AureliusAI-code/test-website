@@ -1477,12 +1477,12 @@
         <div class="code-header">
           <div class="code-header-left">
             <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-title">Install Skill</span>
+            <span class="code-title">Bankr · Install Skill</span>
           </div>
           <button class="code-copy" onclick="doCopy(this,'installCode')">Copy</button>
         </div>
         <div class="code-body">
-          <pre id="installCode">$ curl https://raw.githubusercontent.com/aureliusai-code/test-website/main/skill.md</pre>
+          <pre id="installCode">/skill https://askspecter.xyz/skill.md</pre>
         </div>
       </div>
     </div>
@@ -1497,27 +1497,26 @@
           <button class="code-copy" onclick="doCopy(this,'scoreCode')">Copy</button>
         </div>
         <div class="code-body">
-<pre id="scoreCode"><span class="c-method">GET</span> <span class="c-str">/api/specter/score</span>
-
-<span class="c-key">Authorization</span>: Bearer specter_key_...
-<span class="c-key">X-Agent-Address</span>: 0x4f3a...b7e2
+<pre id="scoreCode"><span class="c-cmt">// No API key required — permissionless</span>
+<span class="c-method">GET</span> <span class="c-str">https://api.askspecter.xyz/v1/score/0x4f3a...b7e2</span>
 
 <span class="c-cmt">// Response</span>
 {
-  <span class="c-key">"agent"</span>: <span class="c-str">"0x4f3a...b7e2"</span>,
-  <span class="c-key">"composite"</span>: <span class="c-num">81.4</span>,
-  <span class="c-key">"status"</span>: <span class="c-val">"TRUSTED"</span>,
-  <span class="c-key">"vector"</span>: {
-    <span class="c-key">"tx_volume"</span>:         <span class="c-num">78</span>,
-    <span class="c-key">"counterparty_div"</span>:  <span class="c-num">91</span>,
-    <span class="c-key">"account_age"</span>:       <span class="c-num">65</span>,
-    <span class="c-key">"repayment_hist"</span>:    <span class="c-num">88</span>,
-    <span class="c-key">"exploit_exposure"</span>:  <span class="c-num">95</span>,
-    <span class="c-key">"prompt_integrity"</span>:  <span class="c-num">72</span>,
-    <span class="c-key">"peer_endorsement"</span>:  <span class="c-num">83</span>
+  <span class="c-key">"address"</span>:  <span class="c-str">"0x4f3a...b7e2"</span>,
+  <span class="c-key">"score"</span>:    <span class="c-num">81</span>,
+  <span class="c-key">"verdict"</span>: <span class="c-val">"TRUSTED_AGENT"</span>,
+  <span class="c-key">"chain"</span>:   <span class="c-str">"base"</span>,
+  <span class="c-key">"dimensions"</span>: {
+    <span class="c-key">"TX_VOLUME"</span>:        <span class="c-num">78</span>,
+    <span class="c-key">"COUNTERPARTY_DIV"</span>: <span class="c-num">91</span>,
+    <span class="c-key">"ACCOUNT_AGE"</span>:      <span class="c-num">65</span>,
+    <span class="c-key">"REPAYMENT_HIST"</span>:   <span class="c-num">88</span>,
+    <span class="c-key">"EXPLOIT_EXPOSURE"</span>: <span class="c-num">95</span>,
+    <span class="c-key">"PROMPT_INTEGRITY"</span>: <span class="c-num">72</span>,
+    <span class="c-key">"PEER_ENDORSEMENT"</span>: <span class="c-num">83</span>
   },
-  <span class="c-key">"erc8004_proof"</span>: <span class="c-str">"0xd4e7..."</span>,
-  <span class="c-key">"updated"</span>: <span class="c-val">"live"</span>
+  <span class="c-key">"passport"</span>: <span class="c-str">"0x4a2b...c91f"</span>,
+  <span class="c-key">"cached_at"</span>: <span class="c-str">"2026-06-18T02:15:11Z"</span>
 }</pre>
         </div>
       </div>
@@ -1526,30 +1525,25 @@
         <div class="code-header">
           <div class="code-header-left">
             <div class="code-dots"><span></span><span></span><span></span></div>
-            <span class="code-title">POST /specter/gate</span>
+            <span class="code-title">GET /specter/verify</span>
           </div>
           <button class="code-copy" onclick="doCopy(this,'gateCode')">Copy</button>
         </div>
         <div class="code-body">
-<pre id="gateCode"><span class="c-cmt">// Gate access to permissioned pool</span>
-<span class="c-method">POST</span> <span class="c-str">/api/specter/gate</span>
-
-{
-  <span class="c-key">"agent"</span>: <span class="c-str">"0x4f3a..."</span>,
-  <span class="c-key">"min_composite"</span>: <span class="c-num">70</span>,
-  <span class="c-key">"required_dims"</span>: [
-    <span class="c-str">"repayment_hist"</span>,
-    <span class="c-str">"exploit_exposure"</span>
-  ],
-  <span class="c-key">"min_per_dim"</span>: <span class="c-num">80</span>
-}
+<pre id="gateCode"><span class="c-cmt">// Verify ERC-8004 identity passport</span>
+<span class="c-method">GET</span> <span class="c-str">https://api.askspecter.xyz/v1/verify/0x4f3a...b7e2</span>
 
 <span class="c-cmt">// Response</span>
 {
-  <span class="c-key">"access"</span>: <span class="c-val">true</span>,
-  <span class="c-key">"reason"</span>: <span class="c-str">"all gates passed"</span>,
-  <span class="c-key">"proof"</span>: <span class="c-str">"0x9c2f..."</span>
-}</pre>
+  <span class="c-key">"address"</span>:    <span class="c-str">"0x4f3a...b7e2"</span>,
+  <span class="c-key">"verified"</span>:   <span class="c-val">true</span>,
+  <span class="c-key">"passport"</span>:   <span class="c-str">"0x4a2b...c91f"</span>,
+  <span class="c-key">"registered"</span>: <span class="c-str">"2026-01-15T08:22:00Z"</span>
+}
+
+<span class="c-cmt">// Require score ≥ 75 before trusting</span>
+<span class="c-cmt">// x402 pay-per-query for high volume:</span>
+<span class="c-str">https://bankr.bot/x402</span></pre>
         </div>
       </div>
     </div>
@@ -1622,16 +1616,17 @@
       <button class="modal-x" onclick="closeInstall()">×</button>
     </div>
     <div class="modal-body">
+      <p style="font-size:11px;color:var(--gray);margin-bottom:12px;font-family:var(--mono)">Paste this command in <a href="https://bankr.bot" target="_blank" style="color:var(--red);text-decoration:none">Bankr</a> chat ↓</p>
       <div class="install-cmd">
-        <span class="install-dollar">$</span>
-        <span class="install-text" id="modalCmd">curl https://raw.githubusercontent.com/aureliusai-code/test-website/main/skill.md</span>
+        <span class="install-dollar">→</span>
+        <span class="install-text" id="modalCmd">/skill https://askspecter.xyz/skill.md</span>
         <button class="install-copy" id="modalCopyBtn" onclick="copyInstallCmd()">Copy</button>
       </div>
       <ol class="install-steps">
-        <li><span class="num">01</span> Open Bankr and start a new chat</li>
-        <li><span class="num">02</span> Paste the curl command above — Bankr will fetch and install the skill</li>
-        <li><span class="num">03</span> Ask your agent to score any agent address: <em>"score 0x..."</em></li>
-        <li><span class="num">04</span> No API key required — permissionless, up to 1,000 queries/month free</li>
+        <li><span class="num">01</span> Open <a href="https://bankr.bot" target="_blank" style="color:var(--red)">Bankr</a> and start a new chat</li>
+        <li><span class="num">02</span> Paste the <code>/skill</code> command above and send — Bankr installs SPECTER automatically</li>
+        <li><span class="num">03</span> Ask your agent to score any address: <em>"score 0x4f3a...b7e2"</em></li>
+        <li><span class="num">04</span> No API key required — permissionless, 1,000 free queries/month</li>
       </ol>
     </div>
   </div>

@@ -113,18 +113,6 @@
       color: var(--fg);
     }
 
-    /* ── PROGRESS BAR ── */
-    #bar {
-      position: fixed;
-      top: 0; left: 0;
-      height: 2px;
-      width: 0;
-      background: linear-gradient(90deg, var(--red), #ff6b6b);
-      box-shadow: 0 0 8px rgba(229,51,51,.6);
-      z-index: 9999;
-      transition: width .08s;
-      pointer-events: none;
-    }
 
     /* ── NAV ── */
     nav {
@@ -1169,7 +1157,6 @@
 </head>
 <body>
 
-<div id="bar"></div>
 <canvas id="netCanvas"></canvas>
 
 <!-- ── NAV ── -->
@@ -1184,6 +1171,7 @@
     <a href="#score" class="nav-a">Score</a>
     <a href="#demo" class="nav-a">Demo</a>
     <a href="#integrate" class="nav-a">Integrate</a>
+    <a href="/docs" class="nav-a">Docs</a>
     <button class="nav-btn" onclick="openInstall()">Install Skill ↗</button>
   </div>
   <button class="hamburger" id="ham" aria-label="menu">
@@ -1197,6 +1185,7 @@
   <a href="#score" onclick="closeMobile()">Score</a>
   <a href="#demo" onclick="closeMobile()">Live Demo</a>
   <a href="#integrate" onclick="closeMobile()">Integrate</a>
+  <a href="/docs" onclick="closeMobile()">Docs ↗</a>
   <a href="#" onclick="openInstall(); closeMobile()">Install Skill ↗</a>
 </div>
 
@@ -1611,7 +1600,7 @@
         </div>
         <div class="footer-col">
           <h5>Standards</h5>
-          <a href="docs.html#erc-8004">ERC-8004 ↗</a>
+          <a href="/docs#erc-8004">ERC-8004 ↗</a>
           <a href="https://bankr.bot/x402" target="_blank">x402 Protocol ↗</a>
           <a href="https://agentcommunicationprotocol.dev" target="_blank">ACP Protocol ↗</a>
         </div>
@@ -1807,11 +1796,6 @@ function animScoreSection() {
   }, 16);
 }
 
-// ── SCROLL PROGRESS ──────────────────────────────────────
-window.addEventListener('scroll', () => {
-  const h = document.documentElement.scrollHeight - window.innerHeight;
-  document.getElementById('bar').style.width = (window.scrollY / h * 100) + '%';
-});
 
 // ── OBSERVERS ────────────────────────────────────────────
 const revealObs = new IntersectionObserver(entries => {

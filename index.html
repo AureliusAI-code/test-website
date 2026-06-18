@@ -1079,7 +1079,7 @@
     }
 
     .install-dollar { color: var(--red); font-family: var(--mono); font-weight: 600; flex-shrink: 0; }
-    .install-text { font-family: var(--mono); font-size: 13px; color: var(--fg); flex: 1; word-break: break-all; min-width: 0; }
+    .install-text { font-family: var(--mono); font-size: 11px; color: var(--fg); flex: 1; overflow-wrap: anywhere; min-width: 0; }
 
     .install-copy { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; padding: 7px 14px; background: none; border: 1px solid var(--border2); color: var(--dim); cursor: pointer; flex-shrink: 0; transition: all .2s; }
     .install-copy:hover { border-color: var(--red); color: var(--red); }
@@ -1628,12 +1628,10 @@
         <button class="install-copy" id="modalCopyBtn" onclick="copyInstallCmd()">Copy</button>
       </div>
       <ol class="install-steps">
-        <li><span class="num">01</span> Install Bankr CLI or open your Bankr agent dashboard</li>
-        <li><span class="num">02</span> Run the curl command above to fetch SPECTER's SKILL.MD</li>
-        <li><span class="num">03</span> Add the skill to your agent configuration file</li>
-        <li><span class="num">04</span> Set <code style="color:var(--red);font-family:var(--mono)">SPECTER_API_KEY</code> in your environment variables</li>
-        <li><span class="num">05</span> Call <code style="color:var(--red);font-family:var(--mono)">specter.score(agentAddress)</code> from any Bankr skill</li>
-        <li><span class="num">06</span> Your agent can now prove and read reputation on-chain via ERC-8004</li>
+        <li><span class="num">01</span> Open Bankr and start a new chat</li>
+        <li><span class="num">02</span> Paste the curl command above — Bankr will fetch and install the skill</li>
+        <li><span class="num">03</span> Ask your agent to score any agent address: <em>"score 0x..."</em></li>
+        <li><span class="num">04</span> No API key required — permissionless, up to 1,000 queries/month free</li>
       </ol>
     </div>
   </div>

@@ -1,0 +1,18 @@
+{
+  "name": "@specter/cli",
+  "version": "1.0.0",
+  "description": "Know Your Agent — behavioral reputation scoring for autonomous AI agents",
+  "bin": {
+    "specter": "./bin/specter.js"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "keywords": ["specter", "kya", "agent", "reputation", "erc-8004", "blockchain", "aeon", "hermes"],
+  "license": "MIT",
+  "homepage": "https://askspecter.xyz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/askspecter/cli"
+  }
+}

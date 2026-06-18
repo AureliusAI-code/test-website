@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SPECTER — Know Your Agent</title>
   <meta name="description" content="Behavioral reputation scoring for autonomous agents. On-chain. Permissionless. Self-improving.">
-  <link href="https://api.fontshare.com/v2/css?f[]=neue-machina@700,800,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Geist+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -26,7 +25,7 @@
       --green:   #22c55e;
       --yellow:  #f59e0b;
       --rederr:  #f87171;
-      --display: 'Neue Machina','Arial Black',system-ui,sans-serif;
+      --display: 'Space Grotesk',system-ui,sans-serif;
       --mono:    'Geist Mono','Fira Code',monospace;
     }
 
@@ -51,31 +50,29 @@
 
     /* ── SCAN-LINE HEADINGS ── */
     h1, h2 {
+      position: relative;
       font-family: var(--display);
       font-weight: 800;
+      color: var(--fg);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+    h1::after, h2::after {
+      content: '';
+      position: absolute;
+      inset: 0;
       background: repeating-linear-gradient(
         180deg,
-        #f0f0f0 0px, #f0f0f0 55%,
-        rgba(8,8,8,.52) 55%, rgba(8,8,8,.52) 100%
+        transparent 0px, transparent 55%,
+        rgba(8,8,8,.48) 55%, rgba(8,8,8,.48) 100%
       );
       background-size: 100% 5px;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: transparent;
+      pointer-events: none;
     }
 
     h1 em {
       font-style: normal;
-      background: repeating-linear-gradient(
-        180deg,
-        var(--red) 0px, var(--red) 55%,
-        rgba(8,8,8,.52) 55%, rgba(8,8,8,.52) 100%
-      );
-      background-size: 100% 5px;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--red);
     }
 
     h3 {
@@ -306,6 +303,14 @@
       line-height: 1.0;
       letter-spacing: -.02em;
       margin-bottom: 24px;
+    }
+
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    #heroH1 {
+      animation: heroFadeUp .7s cubic-bezier(.22,.61,.36,1) .25s both;
     }
 
     .hero-sub {
@@ -944,8 +949,6 @@
     .t-meta-item { font-family: var(--mono); font-size: 10px; color: var(--dim); }
     .t-meta-item .v { color: var(--fg); display: block; margin-top: 2px; word-break: break-all; }
 
-    .tcursor { display: inline-block; width: 7px; height: 14px; background: var(--red); opacity: .8; animation: curblink .8s step-start infinite; vertical-align: middle; }
-    @keyframes curblink { 0%, 100% { opacity: .8; } 50% { opacity: 0; } }
 
     /* ── INTEGRATE ── */
     .integrate-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -1204,7 +1207,7 @@
       Know Your Agent &nbsp;·&nbsp; ERC-8004 &nbsp;·&nbsp; Live on Base
     </div>
 
-    <h1 id="heroH1">The underground<br>network <em>for agents.</em></h1>
+    <h1 id="heroH1">Know every agent<br><em>before it acts.</em></h1>
 
     <p class="hero-sub">
       Behavioral reputation scoring for autonomous agents.<br>
@@ -1609,7 +1612,7 @@
           </a>
           <a href="https://x.com/AskSpecter" target="_blank" rel="noopener" class="social-btn">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            X / Twitter
+            Twitter
           </a>
           <a href="https://bankr.bot" target="_blank" rel="noopener" class="social-btn">↗ Bankr</a>
         </div>
@@ -1875,34 +1878,6 @@ const countObs = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.5 });
 
-// ── TYPEWRITER ───────────────────────────────────────────
-function typeH1() {
-  const el = document.getElementById('heroH1');
-  if (!el || el.dataset.typed) return;
-  el.dataset.typed = '1';
-  const html = el.innerHTML;
-  el.innerHTML = '';
-  const tmp = document.createElement('div');
-  tmp.innerHTML = html;
-  const text = tmp.textContent;
-  const cursor = document.createElement('span');
-  cursor.className = 'tcursor';
-  el.appendChild(cursor);
-  let i = 0;
-  const iv = setInterval(() => {
-    if (i < text.length) {
-      cursor.before(document.createTextNode(text[i]));
-      i++;
-    } else {
-      clearInterval(iv);
-      setTimeout(() => {
-        cursor.style.opacity = '0';
-        cursor.style.transition = 'opacity .3s';
-        setTimeout(() => cursor.remove(), 300);
-      }, 1600);
-    }
-  }, 40);
-}
 
 // ── TERMINAL DEMO ────────────────────────────────────────
 function selectTab(btn) {
@@ -2051,7 +2026,6 @@ document.addEventListener('DOMContentLoaded', () => {
   scoreObs.observe(document.getElementById('scoreDims'));
   heroObs.observe(document.getElementById('heroCard'));
 
-  setTimeout(typeH1, 500);
 });
 </script>
 </body>

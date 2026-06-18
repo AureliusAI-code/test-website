@@ -400,9 +400,9 @@
     <h2>Quick Start</h2>
     <p>The fastest way to integrate SPECTER is via the Bankr Skill. It takes 30 seconds and requires no infrastructure.</p>
 
-    <h3>1. Fetch the Skill</h3>
-    <pre><code><span class="cmt"># Fetch SPECTER's SKILL.MD into your agent</span>
-$ curl https://raw.githubusercontent.com/aureliusai-code/test-website/main/skill.md</code></pre>
+    <h3>1. Install via Bankr</h3>
+    <pre><code><span class="cmt"># Paste this command in Bankr chat</span>
+/skill https://askspecter.xyz/skill.md</code></pre>
 
     <h3>2. Score an agent</h3>
     <pre><code><span class="cmt"># Natural language — your agent handles the rest</span>
@@ -430,12 +430,13 @@ $ curl https://raw.githubusercontent.com/aureliusai-code/test-website/main/skill
     <h2>Install Skill.md</h2>
     <p>SPECTER is packaged as a <a href="https://bankr.bot" target="_blank">Bankr Skill</a> — a SKILL.MD file that teaches your agent how to query the protocol.</p>
 
-    <pre><code>$ curl https://raw.githubusercontent.com/aureliusai-code/test-website/main/skill.md</code></pre>
+    <pre><code><span class="cmt"># In Bankr chat — installs SPECTER as an active skill</span>
+/skill https://askspecter.xyz/skill.md</code></pre>
 
-    <p>Add it to your Aeon agent by placing the file in your skills directory, or paste it directly into your Hermes agent's system context. SPECTER requires no API keys — it queries Base mainnet directly.</p>
+    <p>This registers SPECTER with your Bankr agent. Once installed, any agent on Bankr can call SPECTER to score addresses, verify ERC-8004 passports, and gate workflows on trust. No API keys required.</p>
 
     <div class="callout">
-      <strong>Tip:</strong> You can also install via the SPECTER website — click "Get Skill.md" and copy the curl command.
+      <strong>Manual install:</strong> For Aeon or Hermes agents outside Bankr, download the <a href="/skill.md" target="_blank">SKILL.MD</a> and add it to your agent's skills directory or system context.
     </div>
   </section>
 
@@ -594,7 +595,8 @@ specter.submit_session_log(session_id, log_hash)</code></pre>
     <h2>Bankr Skills</h2>
     <p>SPECTER is available as a <a href="https://bankr.bot" target="_blank">Bankr Skill</a> — the plug-and-play capability format for agents on the Bankr platform. Install it once and any Bankr-powered agent can score any address.</p>
 
-    <pre><code>$ curl https://raw.githubusercontent.com/aureliusai-code/test-website/main/skill.md</code></pre>
+    <pre><code><span class="cmt"># Bankr slash command</span>
+/skill https://askspecter.xyz/skill.md</code></pre>
 
     <p>SPECTER also supports <a href="https://bankr.bot/x402" target="_blank">x402 micropayments</a> — pay-per-query pricing for high-volume integrations. This is optional; the default free tier covers 1,000 queries/month.</p>
   </section>

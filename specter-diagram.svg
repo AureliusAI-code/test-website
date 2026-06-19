@@ -1,0 +1,217 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="440" viewBox="0 0 1040 440">
+  <defs>
+    <pattern id="grid" x="0" y="0" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M 36 0 L 0 0 0 36" fill="none" stroke="rgba(255,255,255,0.028)" stroke-width="0.5"/>
+    </pattern>
+    <filter id="redglow">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softglow">
+      <feGaussianBlur stdDeviation="1.8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(229,51,51,0.07)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+    </radialGradient>
+  </defs>
+
+  <!-- bg -->
+  <rect width="1040" height="440" fill="#080808"/>
+  <rect width="1040" height="440" fill="url(#grid)"/>
+  <rect width="1040" height="440" fill="url(#centerGlow)"/>
+
+  <!-- ══════════════════════════════════════════
+       LEFT — BRANDING
+  ══════════════════════════════════════════ -->
+  <!-- skull-like decorative mark -->
+  <circle cx="72" cy="90" r="28" fill="none" stroke="rgba(229,51,51,0.15)" stroke-width="1"/>
+  <circle cx="63" cy="86" r="5" fill="rgba(229,51,51,0.5)"/>
+  <circle cx="81" cy="86" r="5" fill="rgba(229,51,51,0.5)"/>
+  <path d="M66 97 L72 103 L78 97" fill="none" stroke="rgba(229,51,51,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="60" y1="106" x2="84" y2="106" stroke="rgba(229,51,51,0.3)" stroke-width="1.2"/>
+  <line x1="65" y1="102" x2="65" y2="106" stroke="rgba(229,51,51,0.3)" stroke-width="1.2"/>
+  <line x1="72" y1="103" x2="72" y2="106" stroke="rgba(229,51,51,0.3)" stroke-width="1.2"/>
+  <line x1="79" y1="102" x2="79" y2="106" stroke="rgba(229,51,51,0.3)" stroke-width="1.2"/>
+
+  <!-- SPECTER title -->
+  <text x="44" y="175" font-family="'Arial Black','Impact',sans-serif" font-weight="900" font-size="72" letter-spacing="-1" fill="#f0f0f0">SPECTER</text>
+  <!-- red underline -->
+  <rect x="44" y="184" width="172" height="3" fill="#e53333"/>
+
+  <!-- tagline -->
+  <text x="44" y="214" font-family="'Courier New',monospace" font-size="11" letter-spacing="3.5" fill="#666">KNOW YOUR</text>
+  <text x="44" y="232" font-family="'Courier New',monospace" font-size="11" letter-spacing="3.5" fill="#666">AI AGENT</text>
+
+  <!-- ERC-8004 badge -->
+  <rect x="44" y="254" width="88" height="20" fill="none" stroke="rgba(229,51,51,0.25)" stroke-width="1"/>
+  <text x="88" y="268" text-anchor="middle" font-family="'Courier New',monospace" font-size="8" letter-spacing="2" fill="#e53333">ERC-8004</text>
+
+  <!-- ══════════════════════════════════════════
+       NODE 1 — ADDRESS INPUT
+  ══════════════════════════════════════════ -->
+  <rect x="246" y="168" width="96" height="84" fill="none" stroke="#222" stroke-width="1"/>
+  <!-- top label bar -->
+  <rect x="246" y="168" width="96" height="16" fill="#111"/>
+  <text x="294" y="179" text-anchor="middle" font-family="'Courier New',monospace" font-size="7" letter-spacing="1.5" fill="#555">INPUT</text>
+
+  <!-- terminal icon inside -->
+  <rect x="268" y="192" width="40" height="28" rx="1" fill="none" stroke="#333" stroke-width="1"/>
+  <rect x="268" y="192" width="40" height="8" fill="#111"/>
+  <circle cx="274" cy="196" r="1.5" fill="#555"/>
+  <circle cx="279" cy="196" r="1.5" fill="#555"/>
+  <circle cx="284" cy="196" r="1.5" fill="#555"/>
+  <text x="271" y="210" font-family="'Courier New',monospace" font-size="8" fill="#e53333">›_</text>
+  <line x1="271" y1="215" x2="300" y2="215" stroke="#333" stroke-width="0.8"/>
+
+  <text x="294" y="234" text-anchor="middle" font-family="'Courier New',monospace" font-size="8" letter-spacing="1" fill="#777">AGENT</text>
+  <text x="294" y="245" text-anchor="middle" font-family="'Courier New',monospace" font-size="8" letter-spacing="1" fill="#777">ADDRESS</text>
+
+  <!-- connector: input → engine -->
+  <line x1="342" y1="210" x2="366" y2="210" stroke="#333" stroke-width="1"/>
+  <circle cx="342" cy="210" r="3" fill="#333"/>
+  <polygon points="362,205 372,210 362,215" fill="#444"/>
+
+  <!-- ══════════════════════════════════════════
+       CENTER — SPECTER ENGINE (dashed box)
+  ══════════════════════════════════════════ -->
+  <rect x="374" y="100" width="280" height="240" rx="1" fill="rgba(229,51,51,0.025)" stroke="#e53333" stroke-width="1.2" stroke-dasharray="7,4"/>
+
+  <!-- engine header -->
+  <text x="514" y="126" text-anchor="middle" font-family="'Courier New',monospace" font-size="10" font-weight="bold" letter-spacing="3" fill="#e53333" filter="url(#softglow)">SPECTER ENGINE</text>
+  <text x="514" y="141" text-anchor="middle" font-family="'Courier New',monospace" font-size="8" letter-spacing="2.5" fill="#444">BEHAVIORAL SCORING LAYER</text>
+  <line x1="390" y1="150" x2="638" y2="150" stroke="rgba(229,51,51,0.18)" stroke-width="0.8"/>
+
+  <!-- ── ROW 1: SCAN ── -->
+  <!-- icon: magnifier -->
+  <circle cx="402" cy="178" r="9" fill="none" stroke="#666" stroke-width="1.2"/>
+  <line x1="408" y1="184" x2="414" y2="190" stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="402" cy="178" r="4" fill="none" stroke="#e53333" stroke-width="1"/>
+
+  <text x="428" y="172" font-family="'Courier New',monospace" font-size="10" font-weight="bold" letter-spacing="2" fill="#cccccc">SCAN</text>
+  <text x="428" y="184" font-family="'Courier New',monospace" font-size="8" fill="#555">On-chain audit · Base mainnet</text>
+  <text x="428" y="194" font-family="'Courier New',monospace" font-size="8" fill="#555">tx history · contract exposure</text>
+
+  <line x1="390" y1="206" x2="638" y2="206" stroke="rgba(255,255,255,0.035)" stroke-width="0.5"/>
+
+  <!-- ── ROW 2: SCORE ── -->
+  <!-- icon: 7 bars -->
+  <rect x="394" y="224" width="4" height="10" fill="none" stroke="#666" stroke-width="1"/>
+  <rect x="400" y="220" width="4" height="14" fill="none" stroke="#666" stroke-width="1"/>
+  <rect x="406" y="216" width="4" height="18" fill="none" stroke="#666" stroke-width="1"/>
+  <rect x="412" y="219" width="4" height="15" fill="none" stroke="#666" stroke-width="1"/>
+  <rect x="418" y="222" width="4" height="12" fill="none" stroke="#666" stroke-width="1"/>
+
+  <text x="428" y="226" font-family="'Courier New',monospace" font-size="10" font-weight="bold" letter-spacing="2" fill="#cccccc">SCORE</text>
+  <text x="428" y="238" font-family="'Courier New',monospace" font-size="8" fill="#555">7-dimension behavioral vector</text>
+  <text x="428" y="248" font-family="'Courier New',monospace" font-size="8" fill="#555">composite trust index 0–100</text>
+
+  <line x1="390" y1="262" x2="638" y2="262" stroke="rgba(255,255,255,0.035)" stroke-width="0.5"/>
+
+  <!-- ── ROW 3: ANCHOR ── -->
+  <!-- icon: chain link -->
+  <path d="M396 285 Q396 277 404 277 L408 277 Q416 277 416 285 Q416 293 408 293 L404 293 Q396 293 396 285Z" fill="none" stroke="#666" stroke-width="1.2"/>
+  <line x1="407" y1="281" x2="407" y2="289" stroke="#e53333" stroke-width="1"/>
+  <line x1="403" y1="285" x2="411" y2="285" stroke="#e53333" stroke-width="1"/>
+
+  <text x="428" y="280" font-family="'Courier New',monospace" font-size="10" font-weight="bold" letter-spacing="2" fill="#cccccc">ANCHOR</text>
+  <text x="428" y="292" font-family="'Courier New',monospace" font-size="8" fill="#555">ERC-8004 passport · Base chain</text>
+  <text x="428" y="302" font-family="'Courier New',monospace" font-size="8" fill="#555">cryptographic proof on-chain</text>
+
+  <!-- ══════════════════════════════════════════
+       CONNECTORS: engine → verdicts
+  ══════════════════════════════════════════ -->
+  <line x1="654" y1="220" x2="678" y2="220" stroke="#333" stroke-width="1"/>
+  <circle cx="654" cy="220" r="3.5" fill="#333"/>
+
+  <!-- branch up -->
+  <line x1="678" y1="220" x2="678" y2="152" stroke="#333" stroke-width="1"/>
+  <line x1="678" y1="152" x2="698" y2="152" stroke="#333" stroke-width="1"/>
+  <polygon points="694,147 704,152 694,157" fill="#444"/>
+
+  <!-- branch middle -->
+  <line x1="678" y1="220" x2="698" y2="220" stroke="#333" stroke-width="1"/>
+  <polygon points="694,215 704,220 694,225" fill="#444"/>
+
+  <!-- branch down -->
+  <line x1="678" y1="220" x2="678" y2="288" stroke="#333" stroke-width="1"/>
+  <line x1="678" y1="288" x2="698" y2="288" stroke="#333" stroke-width="1"/>
+  <polygon points="694,283 704,288 694,293" fill="#444"/>
+
+  <!-- ══════════════════════════════════════════
+       VERDICT BOXES
+  ══════════════════════════════════════════ -->
+
+  <!-- TRUSTED_AGENT -->
+  <rect x="706" y="126" width="148" height="52" rx="1" fill="rgba(34,197,94,0.05)" stroke="rgba(34,197,94,0.3)" stroke-width="1"/>
+  <!-- check -->
+  <path d="M720 152 L726 158 L738 144" stroke="#22c55e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="748" y="147" font-family="'Courier New',monospace" font-size="10" font-weight="bold" letter-spacing="1.5" fill="#22c55e">TRUSTED</text>
+  <text x="748" y="161" font-family="'Courier New',monospace" font-size="8" fill="#2d6b44">score 85–100</text>
+  <text x="748" y="171" font-family="'Courier New',monospace" font-size="7" fill="#1e4a2e">safe to transact</text>
+
+  <!-- REVIEW_ADVISED -->
+  <rect x="706" y="194" width="148" height="52" rx="1" fill="rgba(245,158,11,0.05)" stroke="rgba(245,158,11,0.3)" stroke-width="1"/>
+  <!-- pause bars -->
+  <rect x="719" y="210" width="5" height="18" rx="0" fill="#f59e0b"/>
+  <rect x="727" y="210" width="5" height="18" rx="0" fill="#f59e0b"/>
+  <text x="748" y="215" font-family="'Courier New',monospace" font-size="10" font-weight="bold" letter-spacing="1.5" fill="#f59e0b">REVIEW</text>
+  <text x="748" y="229" font-family="'Courier New',monospace" font-size="8" fill="#7a5c10">score 65–84</text>
+  <text x="748" y="239" font-family="'Courier New',monospace" font-size="7" fill="#5a4410">proceed with caution</text>
+
+  <!-- HIGH_RISK -->
+  <rect x="706" y="262" width="148" height="52" rx="1" fill="rgba(229,51,51,0.07)" stroke="rgba(229,51,51,0.35)" stroke-width="1"/>
+  <!-- X -->
+  <line x1="719" y1="273" x2="733" y2="303" stroke="#e53333" stroke-width="2" stroke-linecap="round"/>
+  <line x1="733" y1="273" x2="719" y2="303" stroke="#e53333" stroke-width="2" stroke-linecap="round"/>
+  <text x="748" y="283" font-family="'Courier New',monospace" font-size="10" font-weight="bold" letter-spacing="1.5" fill="#e53333">HIGH RISK</text>
+  <text x="748" y="297" font-family="'Courier New',monospace" font-size="8" fill="#6e2a2a">score 0–64</text>
+  <text x="748" y="307" font-family="'Courier New',monospace" font-size="7" fill="#4e1e1e">do not delegate</text>
+
+  <!-- ══════════════════════════════════════════
+       CONNECTOR → PASSPORT
+  ══════════════════════════════════════════ -->
+  <line x1="854" y1="152" x2="870" y2="152" stroke="#333" stroke-width="1"/>
+  <line x1="870" y1="152" x2="870" y2="220" stroke="#333" stroke-width="1"/>
+  <line x1="854" y1="220" x2="870" y2="220" stroke="#333" stroke-width="1"/>
+  <line x1="854" y1="288" x2="870" y2="288" stroke="#333" stroke-width="1"/>
+  <line x1="870" y1="288" x2="870" y2="220" stroke="#333" stroke-width="1"/>
+  <line x1="870" y1="220" x2="888" y2="220" stroke="#333" stroke-width="1"/>
+  <polygon points="884,215 894,220 884,225" fill="#444"/>
+
+  <!-- ══════════════════════════════════════════
+       PASSPORT RECEIPT NODE
+  ══════════════════════════════════════════ -->
+  <rect x="896" y="180" width="112" height="80" fill="none" stroke="#252525" stroke-width="1"/>
+  <rect x="896" y="180" width="112" height="16" fill="#111"/>
+  <text x="952" y="191" text-anchor="middle" font-family="'Courier New',monospace" font-size="7" letter-spacing="1.5" fill="#444">OUTPUT</text>
+
+  <!-- document icon -->
+  <rect x="920" y="204" width="30" height="36" rx="1" fill="none" stroke="#444" stroke-width="1"/>
+  <rect x="920" y="204" width="30" height="1" fill="rgba(229,51,51,0.4)"/>
+  <line x1="926" y1="212" x2="944" y2="212" stroke="#333" stroke-width="0.8"/>
+  <line x1="926" y1="217" x2="944" y2="217" stroke="#333" stroke-width="0.8"/>
+  <line x1="926" y1="222" x2="938" y2="222" stroke="#333" stroke-width="0.8"/>
+  <!-- seal -->
+  <circle cx="940" cy="231" r="4" fill="none" stroke="#e53333" stroke-width="1"/>
+  <circle cx="940" cy="231" r="1.5" fill="#e53333"/>
+
+  <text x="960" y="218" font-family="'Courier New',monospace" font-size="9" letter-spacing="1" fill="#777">ERC-8004</text>
+  <text x="960" y="230" font-family="'Courier New',monospace" font-size="9" letter-spacing="1" fill="#777">PASSPORT</text>
+  <text x="960" y="244" font-family="'Courier New',monospace" font-size="7" fill="#3a3a3a">signed · onchain</text>
+  <text x="960" y="254" font-family="'Courier New',monospace" font-size="7" fill="#3a3a3a">Base mainnet</text>
+
+  <!-- ══════════════════════════════════════════
+       BOTTOM STRIP
+  ══════════════════════════════════════════ -->
+  <line x1="0" y1="392" x2="1040" y2="392" stroke="#111" stroke-width="1"/>
+  <text x="520" y="412" text-anchor="middle" font-family="'Courier New',monospace" font-size="8" letter-spacing="3" fill="#252525">PERMISSIONLESS  ·  NO API KEY  ·  1,000 FREE QUERIES / MONTH  ·  askspecter.lol</text>
+  <text x="520" y="430" text-anchor="middle" font-family="'Courier New',monospace" font-size="7" letter-spacing="2" fill="#1e1e1e">TX_VOLUME  ·  COUNTERPARTY_DIV  ·  ACCOUNT_AGE  ·  REPAYMENT_HIST  ·  EXPLOIT_EXPOSURE  ·  PROMPT_INTEGRITY  ·  PEER_ENDORSEMENT</text>
+
+  <!-- corner decoration -->
+  <path d="M24,24 L24,14 L34,14" stroke="#1e1e1e" stroke-width="1" fill="none"/>
+  <path d="M1016,24 L1016,14 L1006,14" stroke="#1e1e1e" stroke-width="1" fill="none"/>
+  <path d="M24,416 L24,426 L34,426" stroke="#1e1e1e" stroke-width="1" fill="none"/>
+  <path d="M1016,416 L1016,426 L1006,426" stroke="#1e1e1e" stroke-width="1" fill="none"/>
+</svg>

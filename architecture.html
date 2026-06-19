@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SPECTER — Architecture</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Geist+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #080808;
+    font-family: 'Geist Mono', monospace;
+    color: #f0f0f0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+  }
+
+  .title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #e53333;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    font-size: 11px;
+    color: #444;
+    margin-bottom: 48px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── CANVAS ── */
+  .diagram {
+    width: 100%;
+    max-width: 860px;
+    position: relative;
+  }
+
+  /* ── NODES ── */
+  .node {
+    background: #101010;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 14px 18px;
+    position: relative;
+  }
+  .node-label {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    color: #444;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .node-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #f0f0f0;
+  }
+  .node-desc {
+    font-size: 10px;
+    color: #666;
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .node.red {
+    border-color: rgba(229,51,51,0.4);
+    background: rgba(229,51,51,0.05);
+  }
+  .node.red .node-name { color: #e53333; }
+  .node.dim {
+    border-color: rgba(255,255,255,0.05);
+    background: #0c0c0c;
+  }
+
+  /* ── ROWS ── */
+  .row {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 0;
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  /* ── ARROWS ── */
+  .arrow-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    height: 36px;
+    position: relative;
+  }
+  .arrow-row .line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(229,51,51,0.5), transparent);
+    position: relative;
+  }
+  .arrow-row .line::after {
+    content: '▶';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #e53333;
+    font-size: 9px;
+  }
+  .arrow-down {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 36px;
+    gap: 0;
+  }
+  .arrow-down .vline {
+    width: 1px;
+    flex: 1;
+    background: linear-gradient(180deg, rgba(229,51,51,0.5), rgba(229,51,51,0.2));
+  }
+  .arrow-down .tip {
+    color: #e53333;
+    font-size: 9px;
+    line-height: 1;
+  }
+
+  /* ── DIMS GRID ── */
+  .dims-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 8px;
+  }
+  .dim-card {
+    background: #0c0c0c;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 6px;
+    padding: 10px 12px;
+  }
+  .dim-card:hover {
+    border-color: rgba(229,51,51,0.3);
+  }
+  .dim-key {
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    color: #e53333;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .dim-name {
+    font-size: 10px;
+    color: #888;
+    line-height: 1.4;
+  }
+  .dim-bar {
+    height: 2px;
+    background: #1a1a1a;
+    border-radius: 1px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .dim-fill {
+    height: 100%;
+    background: #e53333;
+    border-radius: 1px;
+    transition: width 1s ease;
+  }
+
+  /* ── ENGINE BOX ── */
+  .engine {
+    background: #0d0d0d;
+    border: 1px solid rgba(229,51,51,0.25);
+    border-radius: 10px;
+    padding: 20px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .engine::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      180deg,
+      transparent 0, transparent 55%,
+      rgba(229,51,51,0.02) 55%, rgba(229,51,51,0.02) 100%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+  }
+  .engine-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #e53333;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .engine-title::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #e53333;
+    box-shadow: 0 0 8px #e53333;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* ── OUTPUTS ── */
+  .outputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .out-card {
+    border-radius: 6px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .out-card.trusted { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2); }
+  .out-card.review  { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); }
+  .out-card.risk    { background: rgba(229,51,51,0.08);  border: 1px solid rgba(229,51,51,0.25); }
+  .out-label { font-size: 9px; letter-spacing: 0.1em; color: #444; text-transform: uppercase; margin-bottom: 4px; }
+  .out-score { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 22px; }
+  .out-card.trusted .out-score { color: #22c55e; }
+  .out-card.review  .out-score { color: #f59e0b; }
+  .out-card.risk    .out-score { color: #e53333; }
+  .out-verdict { font-size: 9px; margin-top: 2px; color: #555; letter-spacing: 0.05em; }
+
+  /* ── SOURCES ── */
+  .sources {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .src-card {
+    background: #0c0c0c;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 6px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .src-icon {
+    font-size: 16px;
+    line-height: 1;
+    margin-top: 1px;
+  }
+  .src-name { font-size: 11px; color: #ccc; font-weight: 600; }
+  .src-desc { font-size: 9px; color: #555; margin-top: 2px; line-height: 1.5; }
+
+  /* ── PASSPORT ── */
+  .passport {
+    background: #0c0c0c;
+    border: 1px solid rgba(229,51,51,0.2);
+    border-radius: 8px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .passport-icon { font-size: 28px; }
+  .passport-title { font-size: 12px; color: #ccc; font-weight: 600; }
+  .passport-sub { font-size: 10px; color: #555; margin-top: 2px; line-height: 1.5; }
+  .passport-badge {
+    margin-left: auto;
+    background: rgba(229,51,51,0.1);
+    border: 1px solid rgba(229,51,51,0.3);
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 9px;
+    color: #e53333;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  /* ── INPUT ── */
+  .input-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #0d0d0d;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 14px 20px;
+  }
+  .input-prompt { color: #e53333; font-size: 13px; }
+  .input-addr { font-size: 12px; color: #888; }
+  .input-addr span { color: #f0f0f0; }
+  .input-badge {
+    margin-left: auto;
+    font-size: 9px;
+    color: #444;
+    border: 1px solid #222;
+    border-radius: 4px;
+    padding: 3px 8px;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── FORMULA ── */
+  .formula {
+    font-size: 10px;
+    color: #555;
+    text-align: center;
+    margin: 10px 0 6px;
+    letter-spacing: 0.04em;
+  }
+  .formula span { color: #e53333; }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 9px;
+    color: #444;
+    letter-spacing: 0.06em;
+  }
+  .legend-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  /* section labels */
+  .sec-tag {
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #333;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+</style>
+</head>
+<body>
+
+<div class="title">SPECTER Protocol</div>
+<div class="subtitle">Architecture · Know Your Agent · v1.0</div>
+
+<div class="diagram">
+
+  <!-- INPUT -->
+  <div class="sec-tag">① Input</div>
+  <div class="input-box">
+    <span class="input-prompt">›</span>
+    <span class="input-addr">specter.score(<span>0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045</span>)</span>
+    <span class="input-badge">Base · EVM</span>
+  </div>
+
+  <div class="arrow-down"><div class="vline"></div><div class="tip">▼</div></div>
+
+  <!-- DATA SOURCES -->
+  <div class="sec-tag">② On-Chain Data Sources</div>
+  <div class="sources">
+    <div class="src-card">
+      <div class="src-icon">⛓</div>
+      <div>
+        <div class="src-name">Base Mainnet</div>
+        <div class="src-desc">Full tx history · contract calls · block timestamps</div>
+      </div>
+    </div>
+    <div class="src-card">
+      <div class="src-icon">🏦</div>
+      <div>
+        <div class="src-name">DeFi Protocols</div>
+        <div class="src-desc">Aave · Compound · Morpho · repayment records</div>
+      </div>
+    </div>
+    <div class="src-card">
+      <div class="src-icon">🌐</div>
+      <div>
+        <div class="src-name">Agent Network</div>
+        <div class="src-desc">Peer endorsements · cross-agent trust signals</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-down"><div class="vline"></div><div class="tip">▼</div></div>
+
+  <!-- ENGINE -->
+  <div class="sec-tag">③ SPECTER Scoring Engine</div>
+  <div class="engine">
+    <div class="engine-title">Behavioral Vector Engine · 7 Dimensions</div>
+
+    <div class="dims-grid">
+      <div class="dim-card">
+        <div class="dim-key">TX_VOLUME</div>
+        <div class="dim-name">Transaction Throughput</div>
+        <div class="dim-bar"><div class="dim-fill" style="width:78%"></div></div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-key">COUNTERPARTY_DIV</div>
+        <div class="dim-name">Interaction Surface</div>
+        <div class="dim-bar"><div class="dim-fill" style="width:91%"></div></div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-key">ACCOUNT_AGE</div>
+        <div class="dim-name">Temporal Credibility</div>
+        <div class="dim-bar"><div class="dim-fill" style="width:65%"></div></div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-key">REPAYMENT_HIST</div>
+        <div class="dim-name">Debt Fulfillment</div>
+        <div class="dim-bar"><div class="dim-fill" style="width:88%"></div></div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-key">EXPLOIT_EXPOSURE</div>
+        <div class="dim-name">Flagged Contract Risk</div>
+        <div class="dim-bar"><div class="dim-fill" style="width:95%"></div></div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-key">PROMPT_INTEGRITY</div>
+        <div class="dim-name">Injection Resistance</div>
+        <div class="dim-bar"><div class="dim-fill" style="width:72%"></div></div>
+      </div>
+      <div class="dim-card">
+        <div class="dim-key">PEER_ENDORSEMENT</div>
+        <div class="dim-name">Agent-to-Agent Trust</div>
+        <div class="dim-bar"><div class="dim-fill" style="width:83%"></div></div>
+      </div>
+      <div class="dim-card" style="display:flex;align-items:center;justify-content:center;border-style:dashed;opacity:0.4;">
+        <div style="text-align:center">
+          <div class="dim-key" style="color:#444">COMPOSITE</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:20px;color:#e53333;margin-top:4px">81.7</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula">
+      composite = <span>Σ</span>( dim<sub>i</sub> × weight<sub>i</sub> ) / <span>Σ</span> weights &nbsp;·&nbsp; refreshed every <span>15 min</span>
+    </div>
+  </div>
+
+  <div class="arrow-down"><div class="vline"></div><div class="tip">▼</div></div>
+
+  <!-- ERC-8004 -->
+  <div class="sec-tag">④ On-Chain Anchoring</div>
+  <div class="passport">
+    <div class="passport-icon">🪪</div>
+    <div>
+      <div class="passport-title">ERC-8004 Identity Passport</div>
+      <div class="passport-sub">Score + proof anchored to Base mainnet · tamper-evident · permissionless verify</div>
+    </div>
+    <div class="passport-badge">Base Mainnet · Live</div>
+  </div>
+
+  <div class="arrow-down"><div class="vline"></div><div class="tip">▼</div></div>
+
+  <!-- OUTPUT -->
+  <div class="sec-tag">⑤ Verdict Output</div>
+  <div class="outputs">
+    <div class="out-card trusted">
+      <div class="out-label">Score 85–100</div>
+      <div class="out-score">✓</div>
+      <div class="out-verdict">TRUSTED_AGENT</div>
+      <div style="font-size:9px;color:#22c55e;margin-top:6px">Safe to transact</div>
+    </div>
+    <div class="out-card review">
+      <div class="out-label">Score 65–84</div>
+      <div class="out-score">⚠</div>
+      <div class="out-verdict">REVIEW_ADVISED</div>
+      <div style="font-size:9px;color:#f59e0b;margin-top:6px">Proceed with caution</div>
+    </div>
+    <div class="out-card risk">
+      <div class="out-label">Score 0–64</div>
+      <div class="out-score">✕</div>
+      <div class="out-verdict">HIGH_RISK</div>
+      <div style="font-size:9px;color:#e53333;margin-top:6px">Do not delegate</div>
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#e53333"></div>SPECTER Engine</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div>Trusted path</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div>Caution path</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#444"></div>On-chain data</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#333"></div>15-min heartbeat</div>
+    <div class="legend-item" style="color:#333">askspecter.lol</div>
+  </div>
+
+</div>
+
+</body>
+</html>

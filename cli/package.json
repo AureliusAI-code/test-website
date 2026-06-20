@@ -1,5 +1,5 @@
 {
-  "name": "@specter/cli",
+  "name": "specter-cli",
   "version": "1.0.0",
   "description": "Know Your Agent — behavioral reputation scoring for autonomous AI agents",
   "bin": {
@@ -8,11 +8,11 @@
   "engines": {
     "node": ">=16"
   },
-  "keywords": ["specter", "kya", "agent", "reputation", "erc-8004", "blockchain", "aeon", "hermes"],
+  "keywords": ["specter", "kya", "agent", "reputation", "erc-8004", "blockchain", "ai-agent", "trust", "base"],
   "license": "MIT",
   "homepage": "https://askspecter.lol",
   "repository": {
     "type": "git",
-    "url": "https://github.com/askspecter/cli"
+    "url": "https://github.com/askspecter/specter-cli"
   }
 }

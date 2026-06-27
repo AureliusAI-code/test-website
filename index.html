@@ -346,6 +346,49 @@
       flex-wrap: wrap;
     }
 
+    .ca-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      padding: 10px 16px;
+      background: rgba(229,51,51,0.04);
+      border: 1px solid rgba(229,51,51,0.18);
+      cursor: pointer;
+      transition: border-color .2s;
+      max-width: 100%;
+      overflow: hidden;
+    }
+    .ca-box:hover { border-color: rgba(229,51,51,0.45); }
+    .ca-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--red);
+      white-space: nowrap;
+    }
+    .ca-addr {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--dim);
+      letter-spacing: .04em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .ca-copy {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .1em;
+      color: var(--dim);
+      white-space: nowrap;
+      padding: 2px 8px;
+      border: 1px solid var(--border);
+      transition: color .2s, border-color .2s;
+    }
+    .ca-box:hover .ca-copy { color: var(--red); border-color: rgba(229,51,51,0.3); }
+
     .cta-p {
       font-family: var(--mono);
       font-size: 12px;
@@ -1212,6 +1255,12 @@
       </button>
       <a href="#demo" class="cta-s">Run Live Demo →</a>
     </div>
+
+    <div class="ca-box" onclick="copyCA()" title="Click to copy">
+      <span class="ca-label">$SPECTER</span>
+      <span class="ca-addr" id="caAddr">0xe5989399231c73E2200B30B74e30BB4978EB6BA3</span>
+      <span class="ca-copy" id="caCopyBtn">Copy</span>
+    </div>
   </div>
 
   <div class="hero-right">
@@ -1602,7 +1651,10 @@
     </div>
 
     <div class="footer-bottom">
-      <span class="footer-copy">© 2026 SPECTER Protocol · All rights reserved</span>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <span class="footer-copy">© 2026 SPECTER Protocol · All rights reserved</span>
+        <span class="footer-copy" style="color:var(--dim);opacity:.5;">$SPECTER · CA: 0xe5989399231c73E2200B30B74e30BB4978EB6BA3</span>
+      </div>
       <div class="footer-status">All systems operational</div>
     </div>
   </div>
@@ -1945,6 +1997,15 @@ function handleModalClick(e) {
   if (e.target === document.getElementById('installModal')) closeInstall();
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeInstall(); });
+
+function copyCA() {
+  const ca = '0xe5989399231c73E2200B30B74e30BB4978EB6BA3';
+  navigator.clipboard.writeText(ca).then(() => {
+    const btn = document.getElementById('caCopyBtn');
+    btn.textContent = 'Copied ✓';
+    setTimeout(() => btn.textContent = 'Copy', 2000);
+  });
+}
 
 function copyInstallCmd() {
   navigator.clipboard.writeText(document.getElementById('modalCmd').textContent).then(() => {

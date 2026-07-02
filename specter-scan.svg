@@ -12,8 +12,8 @@
       <stop offset="100%" stop-color="#22c55e" stop-opacity="0.2"/>
     </linearGradient>
     <linearGradient id="gRed" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#e53333" stop-opacity="0.9"/>
-      <stop offset="100%" stop-color="#e53333" stop-opacity="0.2"/>
+      <stop offset="0%" stop-color="#c8ff00" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#c8ff00" stop-opacity="0.2"/>
     </linearGradient>
     <filter id="fglow">
       <feGaussianBlur stdDeviation="3" result="b"/>
@@ -26,8 +26,8 @@
   <rect width="1040" height="440" fill="url(#dots)"/>
 
   <!-- corner marks -->
-  <path d="M0,0 L52,0 M0,0 L0,52" stroke="#e53333" stroke-width="1.5" fill="none" opacity="0.5"/>
-  <path d="M1040,440 L988,440 M1040,440 L1040,388" stroke="#e53333" stroke-width="1.5" fill="none" opacity="0.5"/>
+  <path d="M0,0 L52,0 M0,0 L0,52" stroke="#c8ff00" stroke-width="1.5" fill="none" opacity="0.5"/>
+  <path d="M1040,440 L988,440 M1040,440 L1040,388" stroke="#c8ff00" stroke-width="1.5" fill="none" opacity="0.5"/>
   <path d="M1040,0 L988,0 M1040,0 L1040,52" stroke="#181818" stroke-width="1" fill="none"/>
   <path d="M0,440 L52,440 M0,440 L0,388" stroke="#181818" stroke-width="1" fill="none"/>
 
@@ -35,18 +35,18 @@
        COL 1 — BRAND  (x: 0-188, cx: 94)
   ══════════════════════════════════════ -->
   <!-- target ring decoration -->
-  <circle cx="94" cy="84" r="28" fill="none" stroke="rgba(229,51,51,0.08)" stroke-width="1"/>
-  <circle cx="94" cy="84" r="18" fill="none" stroke="rgba(229,51,51,0.06)" stroke-width="1"/>
-  <circle cx="94" cy="84" r="5"  fill="rgba(229,51,51,0.55)"/>
-  <line x1="94" y1="56" x2="94" y2="112" stroke="rgba(229,51,51,0.1)" stroke-width="0.5"/>
-  <line x1="66" y1="84" x2="122" y2="84" stroke="rgba(229,51,51,0.1)" stroke-width="0.5"/>
+  <circle cx="94" cy="84" r="28" fill="none" stroke="rgba(200,255,0,0.08)" stroke-width="1"/>
+  <circle cx="94" cy="84" r="18" fill="none" stroke="rgba(200,255,0,0.06)" stroke-width="1"/>
+  <circle cx="94" cy="84" r="5"  fill="rgba(200,255,0,0.55)"/>
+  <line x1="94" y1="56" x2="94" y2="112" stroke="rgba(200,255,0,0.1)" stroke-width="0.5"/>
+  <line x1="66" y1="84" x2="122" y2="84" stroke="rgba(200,255,0,0.1)" stroke-width="0.5"/>
 
   <!-- SPECTER wordmark -->
   <text x="94" y="174" text-anchor="middle"
         font-family="'Arial Black','Impact',sans-serif"
         font-weight="900" font-size="44" letter-spacing="-0.5"
         fill="#f0f0f0">SPECTER</text>
-  <rect x="24" y="181" width="140" height="2" fill="#e53333"/>
+  <rect x="24" y="181" width="140" height="2" fill="#c8ff00"/>
 
   <!-- taglines -->
   <text x="94" y="206" text-anchor="middle"
@@ -58,15 +58,15 @@
 
   <!-- ERC-8004 pill -->
   <rect x="34" y="238" width="120" height="17" fill="none"
-        stroke="rgba(229,51,51,0.22)" stroke-width="1"/>
+        stroke="rgba(200,255,0,0.22)" stroke-width="1"/>
   <text x="94" y="250" text-anchor="middle"
         font-family="'Courier New',monospace" font-size="7.5" letter-spacing="2.5"
-        fill="#e53333">ERC-8004</text>
+        fill="#c8ff00">ERC-8004</text>
 
   <!-- version -->
   <text x="94" y="296" text-anchor="middle"
         font-family="'Courier New',monospace" font-size="7" letter-spacing="1"
-        fill="#222">v1.0.0 · Base Mainnet</text>
+        fill="#222">v1.0.0 · Robinhood Network</text>
 
   <!-- ══ COLUMN DIVIDERS ══ -->
   <line x1="193" y1="42" x2="193" y2="398" stroke="#141414" stroke-width="1"/>
@@ -89,12 +89,12 @@
   ══════════════════════════════════════ -->
   <!-- address box -->
   <rect x="208" y="70" width="136" height="44" fill="#080808" stroke="#1c1c1c" stroke-width="1"/>
-  <text x="220" y="90"  font-family="'Courier New',monospace" font-size="10" fill="#e53333">0x4f3a</text>
+  <text x="220" y="90"  font-family="'Courier New',monospace" font-size="10" fill="#c8ff00">0x4f3a</text>
   <text x="220" y="106" font-family="'Courier New',monospace" font-size="9"  fill="#3a3a3a">· · ·  b7e2</text>
 
   <!-- scan indicator -->
-  <circle cx="218" cy="138" r="3.5" fill="#e53333" opacity="0.85" filter="url(#fglow)"/>
-  <circle cx="218" cy="138" r="7"   fill="none" stroke="rgba(229,51,51,0.18)" stroke-width="1"/>
+  <circle cx="218" cy="138" r="3.5" fill="#c8ff00" opacity="0.85" filter="url(#fglow)"/>
+  <circle cx="218" cy="138" r="7"   fill="none" stroke="rgba(200,255,0,0.18)" stroke-width="1"/>
   <text x="232" y="142" font-family="'Courier New',monospace" font-size="7.5" letter-spacing="1.5" fill="#555">SCANNING</text>
 
   <!-- divider -->
@@ -102,7 +102,7 @@
 
   <!-- chain stats -->
   <text x="208" y="172" font-family="'Courier New',monospace" font-size="7.5" fill="#282828">Chain</text>
-  <text x="344" y="172" text-anchor="end" font-family="'Courier New',monospace" font-size="7.5" fill="#363636">Base Mainnet</text>
+  <text x="344" y="172" text-anchor="end" font-family="'Courier New',monospace" font-size="7.5" fill="#363636">Robinhood Network</text>
 
   <text x="208" y="188" font-family="'Courier New',monospace" font-size="7.5" fill="#282828">Block</text>
   <text x="344" y="188" text-anchor="end" font-family="'Courier New',monospace" font-size="7.5" fill="#363636">21,847,392</text>
@@ -240,7 +240,7 @@
 
   <!-- chain confirmation -->
   <text x="950" y="210" text-anchor="middle"
-        font-family="'Courier New',monospace" font-size="7" fill="#1c1c1c">anchored · Base mainnet</text>
+        font-family="'Courier New',monospace" font-size="7" fill="#1c1c1c">anchored · Robinhood Network</text>
 
   <!-- askspecter -->
   <text x="950" y="260" text-anchor="middle"

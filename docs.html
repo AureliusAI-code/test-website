@@ -19,7 +19,7 @@
       --bg2:     #101010;
       --bg3:     #181818;
       --fg:      #f0f0f0;
-      --red:     #e53333;
+      --red:     #c8ff00;
       --gray:    #888888;
       --gray2:   #c4c4c4;
       --dim:     #444444;
@@ -75,7 +75,7 @@
     }
     .sidebar-brand img {
       width: 28px; height: 28px;
-      border: 1px solid rgba(229,51,51,0.4);
+      border: 1px solid rgba(200,255,0,0.4);
       border-radius: 3px;
     }
     .sidebar-brand span {
@@ -209,7 +209,7 @@
     .callout {
       border: 1px solid var(--border2);
       border-left: 3px solid var(--red);
-      background: rgba(229,51,51,0.04);
+      background: rgba(200,255,0,0.04);
       padding: 16px 20px;
       margin: 20px 0;
       font-size: 12px;
@@ -373,11 +373,11 @@
     <p class="doc-lead">
       SPECTER is a Know Your Agent (KYA) behavioral reputation scoring protocol for autonomous AI agents.
       It computes a 7-dimensional trust score from on-chain activity, cross-session memory, and peer endorsements —
-      all anchored to an immutable ERC-8004 identity passport on Base mainnet.
+      all anchored to an immutable ERC-8004 identity passport on Robinhood Network.
     </p>
 
     <div class="callout">
-      <strong>Early Access</strong> — SPECTER is live on Base mainnet. The scoring engine, CLI, and Bankr Skill are available now. ERC-8004 passport registration opens Q3 2026.
+      <strong>Early Access</strong> — SPECTER is live on Robinhood Network. The scoring engine, CLI, and Bankr Skill are available now. ERC-8004 passport registration opens Q3 2026.
     </div>
 
     <h3>Why SPECTER?</h3>
@@ -386,7 +386,7 @@
     <table>
       <thead><tr><th>Feature</th><th>Description</th></tr></thead>
       <tbody>
-        <tr><td>On-chain</td><td>Scores anchored to ERC-8004 identity on Base mainnet</td></tr>
+        <tr><td>On-chain</td><td>Scores anchored to ERC-8004 identity on Robinhood Network</td></tr>
         <tr><td>Permissionless</td><td>Query any address — no API key, no signup required</td></tr>
         <tr><td>Self-improving</td><td>Model retrains on new behavioral data each epoch</td></tr>
         <tr><td>Multi-chain</td><td>Aggregates signals from Base, Ethereum, Arbitrum, Optimism</td></tr>
@@ -522,9 +522,9 @@
         <span class="band-label" style="color:#f59e0b">Review Advised</span>
       </div>
       <div class="band">
-        <span class="band-range" style="color:#e53333">0–64</span>
-        <div class="band-bar"><div class="band-fill" style="width:40%;background:#e53333"></div></div>
-        <span class="band-label" style="color:#e53333">High Risk</span>
+        <span class="band-range" style="color:#c8ff00">0–64</span>
+        <div class="band-bar"><div class="band-fill" style="width:40%;background:#c8ff00"></div></div>
+        <span class="band-label" style="color:#c8ff00">High Risk</span>
       </div>
     </div>
 
@@ -533,7 +533,7 @@
 
   <!-- ERC-8004 -->
   <section id="erc-8004">
-    <h2>ERC-8004 <span class="badge">Live on Base</span></h2>
+    <h2>ERC-8004 <span class="badge">Live on Robinhood</span></h2>
     <p>ERC-8004 is an on-chain identity standard for autonomous AI agents. It provides a canonical on-chain passport that links an agent's Ethereum address to its behavioral history, capability manifest, and SPECTER score.</p>
 
     <h3>Passport structure</h3>
@@ -557,7 +557,7 @@ AgentPassport memory p = registry.getPassport(agentAddress);
 <span class="kw">require</span>(p.spectreScore &gt;= <span class="num">75</span>, <span class="str">"Agent score below threshold"</span>);</code></pre>
 
     <div class="callout">
-      <strong>Mainnet address:</strong> ERC-8004 registry is deployed on Base mainnet. Registration opens Q3 2026 — follow <a href="https://x.com/AskSpecter" target="_blank">@AskSpecter</a> for the announcement.
+      <strong>Mainnet address:</strong> ERC-8004 registry is deployed on Robinhood Network. Registration opens Q3 2026 — follow <a href="https://x.com/AskSpecter" target="_blank">@AskSpecter</a> for the announcement.
     </div>
   </section>
 
@@ -675,7 +675,7 @@ $ node cli/bin/specter.js help</code></pre>
 
  VERDICT   TRUSTED AGENT
  ERC-8004  0x4a2b...c91f
- CHAIN     Base Mainnet · Block 21,847,392</code></pre>
+ CHAIN     Robinhood Network · Block 21,847,392</code></pre>
   </section>
 
   <!-- FAQ -->
@@ -689,7 +689,7 @@ $ node cli/bin/specter.js help</code></pre>
     <p>Scores update every 15 minutes — one Aeon heartbeat interval. Scores for highly active agents may update faster during periods of significant on-chain activity.</p>
 
     <h3>Can I score any Ethereum address?</h3>
-    <p>Yes. SPECTER is fully permissionless — any 0x address on Base, Ethereum, Arbitrum, or Optimism can be scored. Addresses with no history receive a score of 0 with a <code>NO_HISTORY</code> flag.</p>
+    <p>Yes. SPECTER is fully permissionless — any 0x address on Robinhood, Ethereum, Arbitrum, or Optimism can be scored. Addresses with no history receive a score of 0 with a <code>NO_HISTORY</code> flag.</p>
 
     <h3>Is PROMPT_INTEGRITY only available for Hermes agents?</h3>
     <p>Currently yes. PROMPT_INTEGRITY signals are sourced from Hermes cross-session memory logs. Support for other agent frameworks (Aeon, LangChain, AutoGen) is on the roadmap.</p>

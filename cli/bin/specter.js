@@ -177,7 +177,7 @@ async function cmdScore(addr) {
   console.log(rule());
 
   const steps = [
-    { msg: 'Connecting to Base mainnet RPC',          ms: 280 },
+    { msg: 'Connecting to Robinhood Network RPC',          ms: 280 },
     { msg: 'Indexing transaction history',             ms: 520 },
     { msg: 'Computing 7-dimensional behavior vector',  ms: 680 },
     { msg: 'Verifying ERC-8004 identity passport',     ms: 360 },
@@ -210,7 +210,7 @@ async function cmdScore(addr) {
   console.log('\n' + rule());
   console.log(` ${c.bold}VERDICT${c.reset}      ${verdict}`);
   console.log(` ${c.bold}ERC-8004${c.reset}     ${c.gray}${passport(addr)}${c.reset}`);
-  console.log(` ${c.bold}CHAIN${c.reset}        ${c.gray}Base Mainnet · Block 21,847,392${c.reset}`);
+  console.log(` ${c.bold}CHAIN${c.reset}        ${c.gray}Robinhood Network · Block 21,847,392${c.reset}`);
   console.log(` ${c.bold}QUERIED${c.reset}      ${c.gray}${new Date().toISOString()}${c.reset}`);
   console.log(rule());
   console.log(` ${c.gray}askspecter.lol  ·  github.com/askspecter${c.reset}\n`);
@@ -224,7 +224,7 @@ async function cmdVerify(addr) {
 
   console.log(LOGO);
   console.log(`\n ${c.gray}ERC-8004 Identity Verification${c.reset}\n`);
-  process.stdout.write(` ${c.gray}▸${c.reset}  Checking ${shortAddr(addr)} on Base...`);
+  process.stdout.write(` ${c.gray}▸${c.reset}  Checking ${shortAddr(addr)} on Robinhood...`);
   await sleep(700);
 
   const h = crypto.createHash('sha256').update(addr.toLowerCase()).digest();
@@ -235,7 +235,7 @@ async function cmdVerify(addr) {
     console.log(rule());
     console.log(` ${c.bgreen}✓  VERIFIED${c.reset}`);
     console.log(` ${c.bold}Passport${c.reset}  ${c.gray}${passport(addr)}${c.reset}`);
-    console.log(` ${c.bold}Chain${c.reset}     ${c.gray}Base Mainnet${c.reset}`);
+    console.log(` ${c.bold}Chain${c.reset}     ${c.gray}Robinhood Network${c.reset}`);
     console.log(` ${c.bold}Status${c.reset}    ${c.green}Active${c.reset}`);
     console.log(rule());
   } else {

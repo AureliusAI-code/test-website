@@ -18,7 +18,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="SPECTER — Know Your Agent">
   <meta property="og:description" content="Behavioral reputation scoring for autonomous AI agents. On-chain. Permissionless. Self-improving.">
-  <meta property="og:image" content="favicon-512x512.png">
+  <meta property="og:image" content="specter-logo.jpeg">
   <meta property="og:url" content="https://askspecter.lol">
   <meta property="og:site_name" content="SPECTER">
 
@@ -27,7 +27,7 @@
   <meta name="twitter:site" content="@AskSpecter">
   <meta name="twitter:title" content="SPECTER — Know Your Agent">
   <meta name="twitter:description" content="Behavioral reputation scoring for autonomous AI agents. On-chain. Permissionless. Self-improving.">
-  <meta name="twitter:image" content="favicon-512x512.png">
+  <meta name="twitter:image" content="specter-logo.jpeg">
 
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Geist+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -37,10 +37,10 @@
       --bg2:     #101010;
       --bg3:     #181818;
       --fg:      #f0f0f0;
-      --red:     #e53333;
-      --red-lo:  rgba(229,51,51,0.06);
-      --red-md:  rgba(229,51,51,0.12);
-      --red-hi:  rgba(229,51,51,0.22);
+      --red:     #c8ff00;
+      --red-lo:  rgba(200,255,0,0.06);
+      --red-md:  rgba(200,255,0,0.12);
+      --red-hi:  rgba(200,255,0,0.22);
       --gray:    #888888;
       --gray2:   #c4c4c4;
       --dim:     #444444;
@@ -144,7 +144,7 @@
 
     .brand-icon {
       width: 30px; height: 30px;
-      border: 1px solid rgba(229,51,51,0.4);
+      border: 1px solid rgba(200,255,0,0.4);
       border-radius: 3px;
       display: block;
       object-fit: contain;
@@ -200,7 +200,7 @@
     }
     .nav-btn:hover {
       background: #cc2a2a;
-      box-shadow: 0 0 20px rgba(229,51,51,.4);
+      box-shadow: 0 0 20px rgba(200,255,0,.4);
     }
 
     /* hamburger */
@@ -280,7 +280,7 @@
       position: absolute;
       top: 10%; right: -10%;
       width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(229,51,51,0.07) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(200,255,0,0.07) 0%, transparent 65%);
       pointer-events: none;
       z-index: 0;
     }
@@ -352,14 +352,14 @@
       gap: 10px;
       margin-top: 20px;
       padding: 10px 16px;
-      background: rgba(229,51,51,0.04);
-      border: 1px solid rgba(229,51,51,0.18);
+      background: rgba(200,255,0,0.04);
+      border: 1px solid rgba(200,255,0,0.18);
       cursor: pointer;
       transition: border-color .2s;
       max-width: 100%;
       overflow: hidden;
     }
-    .ca-box:hover { border-color: rgba(229,51,51,0.45); }
+    .ca-box:hover { border-color: rgba(200,255,0,0.45); }
     .ca-label {
       font-family: var(--mono);
       font-size: 10px;
@@ -387,7 +387,7 @@
       border: 1px solid var(--border);
       transition: color .2s, border-color .2s;
     }
-    .ca-box:hover .ca-copy { color: var(--red); border-color: rgba(229,51,51,0.3); }
+    .ca-box:hover .ca-copy { color: var(--red); border-color: rgba(200,255,0,0.3); }
 
     .cta-p {
       font-family: var(--mono);
@@ -406,7 +406,7 @@
       text-decoration: none;
       transition: all .2s;
     }
-    .cta-p:hover { background: #cc2a2a; box-shadow: 0 8px 28px rgba(229,51,51,.4); transform: translateY(-2px); }
+    .cta-p:hover { background: #cc2a2a; box-shadow: 0 8px 28px rgba(200,255,0,.4); transform: translateY(-2px); }
 
     .cta-s {
       font-family: var(--mono);
@@ -435,7 +435,7 @@
       border: 1px solid var(--border2);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 40px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(229,51,51,.05);
+      box-shadow: 0 40px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(200,255,0,.05);
     }
 
     .ac-header {
@@ -660,7 +660,7 @@
       text-transform: uppercase;
       color: var(--red);
       background: var(--red-lo);
-      border: 1px solid rgba(229,51,51,.18);
+      border: 1px solid rgba(200,255,0,.18);
       padding: 5px 13px;
       margin-bottom: 32px;
     }
@@ -695,7 +695,7 @@
       overflow: hidden;
     }
 
-    .prob-panel.good { border-color: rgba(229,51,51,.15); }
+    .prob-panel.good { border-color: rgba(200,255,0,.15); }
 
     .prob-panel-header {
       padding: 13px 20px;
@@ -788,7 +788,7 @@
       padding: 3px 8px;
       background: var(--red-lo);
       color: var(--red);
-      border: 1px solid rgba(229,51,51,.18);
+      border: 1px solid rgba(200,255,0,.18);
       margin-bottom: 14px;
     }
 
@@ -930,7 +930,7 @@
       gap: 8px;
       transition: all .2s;
     }
-    .t-run:hover { background: #cc2a2a; box-shadow: 0 4px 16px rgba(229,51,51,.4); }
+    .t-run:hover { background: #cc2a2a; box-shadow: 0 4px 16px rgba(200,255,0,.4); }
     .t-run:disabled { opacity: .4; cursor: not-allowed; box-shadow: none; }
 
     .t-reset {
@@ -1205,7 +1205,7 @@
 <!-- ── NAV ── -->
 <nav>
   <a href="#" class="nav-brand">
-    <img src="favicon-32x32.png" alt="SPECTER" class="brand-icon">
+    <img src="specter-logo.jpeg" alt="SPECTER" class="brand-icon" style="border-radius:50%;object-fit:cover;">
     SPECTER
   </a>
   <div class="nav-links" id="navLinks">
@@ -1237,7 +1237,7 @@
   <div class="hero-left">
     <div class="hero-pill">
       <span class="dot"></span>
-      Know Your Agent &nbsp;·&nbsp; ERC-8004 &nbsp;·&nbsp; Live on Base
+      Know Your Agent &nbsp;·&nbsp; ERC-8004 &nbsp;·&nbsp; Live on Robinhood
     </div>
 
     <h1 id="heroH1">Know every agent<br><em>before it acts.</em></h1>
@@ -1286,7 +1286,7 @@
               id="heroArc"/>
             <defs>
               <linearGradient id="ggrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#e53333"/>
+                <stop offset="0%" stop-color="#c8ff00"/>
                 <stop offset="100%" stop-color="#ff8080"/>
               </linearGradient>
             </defs>
@@ -1325,7 +1325,7 @@
     </div>
     <div class="stat-item">
       <div class="stat-n" style="font-size:clamp(18px,2.2vw,30px);letter-spacing:.04em;">ERC-8004</div>
-      <div class="stat-l">On-chain identity<br>standard — live on Base</div>
+      <div class="stat-l">On-chain identity<br>standard — live on Robinhood</div>
     </div>
     <div class="stat-item">
       <div class="stat-n">15 min</div>
@@ -1449,7 +1449,7 @@
                 id="bigArc"/>
               <defs>
                 <linearGradient id="gg2" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#e53333"/>
+                  <stop offset="0%" stop-color="#c8ff00"/>
                   <stop offset="100%" stop-color="#ff8080"/>
                 </linearGradient>
               </defs>
@@ -1480,7 +1480,7 @@
     <div class="terminal-outer reveal">
       <div class="t-topbar">
         <div class="t-dots"><span></span><span></span><span></span></div>
-        <div class="t-topbar-title">SPECTER Query Terminal &nbsp;·&nbsp; v1.0.4 &nbsp;·&nbsp; Base Mainnet</div>
+        <div class="t-topbar-title">SPECTER Query Terminal &nbsp;·&nbsp; v1.0.4 &nbsp;·&nbsp; Robinhood Network</div>
         <div class="t-conn">Connected</div>
       </div>
       <div class="t-body">
@@ -1605,7 +1605,7 @@
     <div class="footer-top">
       <div>
         <div class="footer-brand">
-          <img src="favicon-32x32.png" alt="SPECTER" class="brand-icon">
+          <img src="specter-logo.jpeg" alt="SPECTER" class="brand-icon" style="border-radius:50%;object-fit:cover;">
           SPECTER
         </div>
         <p class="footer-desc">
@@ -1749,14 +1749,14 @@ function drawNet() {
         ctx.beginPath();
         ctx.moveTo(pts[i].x, pts[i].y);
         ctx.lineTo(pts[j].x, pts[j].y);
-        ctx.strokeStyle = `rgba(229,51,51,${.08*(1-d/110)})`;
+        ctx.strokeStyle = `rgba(200,255,0,${.08*(1-d/110)})`;
         ctx.lineWidth = .6;
         ctx.stroke();
       }
     }
     ctx.beginPath();
     ctx.arc(pts[i].x, pts[i].y, pts[i].r, 0, Math.PI*2);
-    ctx.fillStyle = 'rgba(229,51,51,.2)';
+    ctx.fillStyle = 'rgba(200,255,0,.2)';
     ctx.fill();
   }
   requestAnimationFrame(drawNet);
@@ -1904,7 +1904,7 @@ async function runDemo() {
 
   const steps = [
     [0,    'cmt',  '// initializing specter query engine...'],
-    [380,  'info', '→ connecting to Base mainnet RPC...'],
+    [380,  'info', '→ connecting to Robinhood Network RPC...'],
     [760,  'ok',   '✓ connected · block 21,847,392'],
     [1100, 'cmt',  `// scanning transaction history for ${data.addr}...`],
     [1600, 'ok',   '✓ 1,847 transactions indexed across 4 chains'],
@@ -1947,7 +1947,7 @@ async function runDemo() {
     <div class="t-meta">
       <div class="t-meta-item">STATUS<span class="v" style="color:${data.composite>=70?'var(--green)':data.composite>=45?'var(--yellow)':'var(--rederr)'}">${data.status}</span></div>
       <div class="t-meta-item">ERC-8004<span class="v">VERIFIED</span></div>
-      <div class="t-meta-item">NETWORK<span class="v">Base Mainnet</span></div>
+      <div class="t-meta-item">NETWORK<span class="v">Robinhood Network</span></div>
       <div class="t-meta-item">PROOF<span class="v">0xd4e7a2f9...</span></div>
       <div class="t-meta-item">UPDATED<span class="v">LIVE</span></div>
     </div>`;

@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="1100" viewBox="0 0 900 1100" font-family="'Courier New', monospace">
   <defs>
     <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#e53333;stop-opacity:1"/>
+      <stop offset="0%" style="stop-color:#c8ff00;stop-opacity:1"/>
       <stop offset="100%" style="stop-color:#ff6666;stop-opacity:1"/>
     </linearGradient>
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -18,7 +18,7 @@
     </filter>
     <!-- scanline pattern -->
     <pattern id="scanlines" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse">
-      <rect x="0" y="0" width="1" height="2" fill="rgba(229,51,51,0.015)"/>
+      <rect x="0" y="0" width="1" height="2" fill="rgba(200,255,0,0.015)"/>
     </pattern>
   </defs>
 
@@ -27,7 +27,7 @@
   <rect width="900" height="1100" fill="url(#scanlines)"/>
 
   <!-- subtle red glow top right -->
-  <ellipse cx="820" cy="120" rx="200" ry="180" fill="rgba(229,51,51,0.04)"/>
+  <ellipse cx="820" cy="120" rx="200" ry="180" fill="rgba(200,255,0,0.04)"/>
 
   <!-- ─── HEADER ─── -->
   <text x="450" y="48" text-anchor="middle" font-family="'Arial Black', sans-serif" font-weight="900" font-size="22" letter-spacing="6" fill="url(#redGrad)" filter="url(#subtleglow)">SPECTER PROTOCOL</text>
@@ -42,18 +42,18 @@
   <rect x="60" y="116" width="780" height="56" rx="2" fill="#0d0d0d" stroke="#2a2a2a" stroke-width="1"/>
   <rect x="60" y="116" width="3" height="56" fill="url(#redGrad)"/>
   <!-- prompt -->
-  <text x="82" y="140" font-size="11" fill="#e53333" font-weight="bold">›</text>
+  <text x="82" y="140" font-size="11" fill="#c8ff00" font-weight="bold">›</text>
   <text x="98" y="140" font-size="11" fill="#666">specter.score(</text>
   <text x="207" y="140" font-size="11" fill="#f0f0f0" font-family="'Courier New', monospace">0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045</text>
   <text x="638" y="140" font-size="11" fill="#666">)</text>
   <text x="82" y="157" font-size="9" fill="#333" letter-spacing="1">ETHEREUM ADDRESS  ·  BASE EVM  ·  0x-PREFIXED  ·  40 HEX CHARS</text>
   <!-- badge -->
-  <rect x="764" y="124" width="68" height="18" rx="1" fill="rgba(229,51,51,0.08)" stroke="rgba(229,51,51,0.2)" stroke-width="1"/>
-  <text x="798" y="136" text-anchor="middle" font-size="8" fill="#e53333" letter-spacing="1">BASE · EVM</text>
+  <rect x="764" y="124" width="68" height="18" rx="1" fill="rgba(200,255,0,0.08)" stroke="rgba(200,255,0,0.2)" stroke-width="1"/>
+  <text x="798" y="136" text-anchor="middle" font-size="8" fill="#c8ff00" letter-spacing="1">BASE · EVM</text>
 
   <!-- Arrow down -->
-  <line x1="450" y1="172" x2="450" y2="196" stroke="rgba(229,51,51,0.4)" stroke-width="1" stroke-dasharray="3,2"/>
-  <polygon points="445,192 455,192 450,200" fill="rgba(229,51,51,0.6)"/>
+  <line x1="450" y1="172" x2="450" y2="196" stroke="rgba(200,255,0,0.4)" stroke-width="1" stroke-dasharray="3,2"/>
+  <polygon points="445,192 455,192 450,200" fill="rgba(200,255,0,0.6)"/>
 
   <!-- ─── ② DATA SOURCES ─── -->
   <text x="60" y="216" font-size="9" letter-spacing="2" fill="#333">② ON-CHAIN DATA SOURCES</text>
@@ -83,50 +83,50 @@
   <text x="624" y="278" font-size="9" fill="#555">cross-agent signals · ACP layer</text>
 
   <!-- Converging arrows to engine -->
-  <line x1="179" y1="296" x2="179" y2="316" stroke="rgba(229,51,51,0.3)" stroke-width="1"/>
-  <line x1="179" y1="316" x2="450" y2="316" stroke="rgba(229,51,51,0.3)" stroke-width="1"/>
-  <line x1="450" y1="296" x2="450" y2="316" stroke="rgba(229,51,51,0.3)" stroke-width="1"/>
-  <line x1="721" y1="296" x2="721" y2="316" stroke="rgba(229,51,51,0.3)" stroke-width="1"/>
-  <line x1="721" y1="316" x2="450" y2="316" stroke="rgba(229,51,51,0.3)" stroke-width="1"/>
-  <line x1="450" y1="316" x2="450" y2="332" stroke="rgba(229,51,51,0.4)" stroke-width="1" stroke-dasharray="3,2"/>
-  <polygon points="445,328 455,328 450,336" fill="rgba(229,51,51,0.6)"/>
+  <line x1="179" y1="296" x2="179" y2="316" stroke="rgba(200,255,0,0.3)" stroke-width="1"/>
+  <line x1="179" y1="316" x2="450" y2="316" stroke="rgba(200,255,0,0.3)" stroke-width="1"/>
+  <line x1="450" y1="296" x2="450" y2="316" stroke="rgba(200,255,0,0.3)" stroke-width="1"/>
+  <line x1="721" y1="296" x2="721" y2="316" stroke="rgba(200,255,0,0.3)" stroke-width="1"/>
+  <line x1="721" y1="316" x2="450" y2="316" stroke="rgba(200,255,0,0.3)" stroke-width="1"/>
+  <line x1="450" y1="316" x2="450" y2="332" stroke="rgba(200,255,0,0.4)" stroke-width="1" stroke-dasharray="3,2"/>
+  <polygon points="445,328 455,328 450,336" fill="rgba(200,255,0,0.6)"/>
 
   <!-- ─── ③ SPECTER ENGINE ─── -->
   <text x="60" y="352" font-size="9" letter-spacing="2" fill="#333">③ SPECTER SCORING ENGINE</text>
 
   <!-- Engine outer box -->
-  <rect x="60" y="360" width="780" height="330" rx="2" fill="#0a0a0a" stroke="rgba(229,51,51,0.25)" stroke-width="1"/>
+  <rect x="60" y="360" width="780" height="330" rx="2" fill="#0a0a0a" stroke="rgba(200,255,0,0.25)" stroke-width="1"/>
   <!-- engine top accent -->
   <rect x="60" y="360" width="780" height="36" fill="#0e0e0e" rx="0"/>
   <rect x="60" y="360" width="780" height="2" fill="url(#redGrad)"/>
 
   <!-- pulsing dot -->
-  <circle cx="82" cy="378" r="4" fill="#e53333" filter="url(#glow)"/>
-  <text x="96" y="383" font-size="10" fill="#e53333" letter-spacing="3" font-weight="bold">BEHAVIORAL VECTOR ENGINE  ·  7 DIMENSIONS</text>
+  <circle cx="82" cy="378" r="4" fill="#c8ff00" filter="url(#glow)"/>
+  <text x="96" y="383" font-size="10" fill="#c8ff00" letter-spacing="3" font-weight="bold">BEHAVIORAL VECTOR ENGINE  ·  7 DIMENSIONS</text>
   <text x="720" y="383" font-size="9" fill="#444" letter-spacing="1">15-min cycle</text>
 
   <!-- 7 dimension cards — row 1 (4 cards) -->
   <!-- TX_VOLUME -->
   <rect x="78" y="412" width="168" height="78" rx="1" fill="#0c0c0c" stroke="#1c1c1c" stroke-width="1"/>
-  <text x="92" y="430" font-size="8" letter-spacing="2" fill="#e53333">TX_VOLUME</text>
+  <text x="92" y="430" font-size="8" letter-spacing="2" fill="#c8ff00">TX_VOLUME</text>
   <text x="92" y="445" font-size="10" fill="#aaa">Transaction</text>
   <text x="92" y="458" font-size="10" fill="#aaa">Throughput</text>
   <rect x="92" y="467" width="120" height="2" rx="1" fill="#1a1a1a"/>
-  <rect x="92" y="467" width="94" height="2" rx="1" fill="#e53333"/>
-  <text x="222" y="470" font-size="9" fill="#e53333">78</text>
+  <rect x="92" y="467" width="94" height="2" rx="1" fill="#c8ff00"/>
+  <text x="222" y="470" font-size="9" fill="#c8ff00">78</text>
 
   <!-- COUNTERPARTY_DIV -->
   <rect x="258" y="412" width="168" height="78" rx="1" fill="#0c0c0c" stroke="#1c1c1c" stroke-width="1"/>
-  <text x="272" y="430" font-size="8" letter-spacing="2" fill="#e53333">COUNTERPARTY</text>
+  <text x="272" y="430" font-size="8" letter-spacing="2" fill="#c8ff00">COUNTERPARTY</text>
   <text x="272" y="445" font-size="10" fill="#aaa">Interaction</text>
   <text x="272" y="458" font-size="10" fill="#aaa">Surface</text>
   <rect x="272" y="467" width="120" height="2" rx="1" fill="#1a1a1a"/>
-  <rect x="272" y="467" width="109" height="2" rx="1" fill="#e53333"/>
-  <text x="402" y="470" font-size="9" fill="#e53333">91</text>
+  <rect x="272" y="467" width="109" height="2" rx="1" fill="#c8ff00"/>
+  <text x="402" y="470" font-size="9" fill="#c8ff00">91</text>
 
   <!-- ACCOUNT_AGE -->
   <rect x="438" y="412" width="168" height="78" rx="1" fill="#0c0c0c" stroke="#1c1c1c" stroke-width="1"/>
-  <text x="452" y="430" font-size="8" letter-spacing="2" fill="#e53333">ACCOUNT_AGE</text>
+  <text x="452" y="430" font-size="8" letter-spacing="2" fill="#c8ff00">ACCOUNT_AGE</text>
   <text x="452" y="445" font-size="10" fill="#aaa">Temporal</text>
   <text x="452" y="458" font-size="10" fill="#aaa">Credibility</text>
   <rect x="452" y="467" width="120" height="2" rx="1" fill="#1a1a1a"/>
@@ -135,17 +135,17 @@
 
   <!-- REPAYMENT_HIST -->
   <rect x="618" y="412" width="168" height="78" rx="1" fill="#0c0c0c" stroke="#1c1c1c" stroke-width="1"/>
-  <text x="632" y="430" font-size="8" letter-spacing="2" fill="#e53333">REPAYMENT</text>
+  <text x="632" y="430" font-size="8" letter-spacing="2" fill="#c8ff00">REPAYMENT</text>
   <text x="632" y="445" font-size="10" fill="#aaa">Debt</text>
   <text x="632" y="458" font-size="10" fill="#aaa">Fulfillment</text>
   <rect x="632" y="467" width="120" height="2" rx="1" fill="#1a1a1a"/>
-  <rect x="632" y="467" width="106" height="2" rx="1" fill="#e53333"/>
-  <text x="762" y="470" font-size="9" fill="#e53333">88</text>
+  <rect x="632" y="467" width="106" height="2" rx="1" fill="#c8ff00"/>
+  <text x="762" y="470" font-size="9" fill="#c8ff00">88</text>
 
   <!-- row 2 (3 cards + composite) -->
   <!-- EXPLOIT_EXPOSURE -->
   <rect x="78" y="504" width="168" height="78" rx="1" fill="#0c0c0c" stroke="#1c1c1c" stroke-width="1"/>
-  <text x="92" y="522" font-size="8" letter-spacing="2" fill="#e53333">EXPLOIT_EXP</text>
+  <text x="92" y="522" font-size="8" letter-spacing="2" fill="#c8ff00">EXPLOIT_EXP</text>
   <text x="92" y="537" font-size="10" fill="#aaa">Flagged</text>
   <text x="92" y="550" font-size="10" fill="#aaa">Contract Risk</text>
   <rect x="92" y="559" width="120" height="2" rx="1" fill="#1a1a1a"/>
@@ -154,7 +154,7 @@
 
   <!-- PROMPT_INTEGRITY -->
   <rect x="258" y="504" width="168" height="78" rx="1" fill="#0c0c0c" stroke="#1c1c1c" stroke-width="1"/>
-  <text x="272" y="522" font-size="8" letter-spacing="2" fill="#e53333">PROMPT_INT</text>
+  <text x="272" y="522" font-size="8" letter-spacing="2" fill="#c8ff00">PROMPT_INT</text>
   <text x="272" y="537" font-size="10" fill="#aaa">Injection</text>
   <text x="272" y="550" font-size="10" fill="#aaa">Resistance</text>
   <rect x="272" y="559" width="120" height="2" rx="1" fill="#1a1a1a"/>
@@ -163,15 +163,15 @@
 
   <!-- PEER_ENDORSEMENT -->
   <rect x="438" y="504" width="168" height="78" rx="1" fill="#0c0c0c" stroke="#1c1c1c" stroke-width="1"/>
-  <text x="452" y="522" font-size="8" letter-spacing="2" fill="#e53333">PEER_ENDORSE</text>
+  <text x="452" y="522" font-size="8" letter-spacing="2" fill="#c8ff00">PEER_ENDORSE</text>
   <text x="452" y="537" font-size="10" fill="#aaa">Agent-to-Agent</text>
   <text x="452" y="550" font-size="10" fill="#aaa">Trust</text>
   <rect x="452" y="559" width="120" height="2" rx="1" fill="#1a1a1a"/>
-  <rect x="452" y="559" width="100" height="2" rx="1" fill="#e53333"/>
-  <text x="582" y="562" font-size="9" fill="#e53333">83</text>
+  <rect x="452" y="559" width="100" height="2" rx="1" fill="#c8ff00"/>
+  <text x="582" y="562" font-size="9" fill="#c8ff00">83</text>
 
   <!-- COMPOSITE SCORE box -->
-  <rect x="618" y="504" width="168" height="78" rx="1" fill="#111" stroke="rgba(229,51,51,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
+  <rect x="618" y="504" width="168" height="78" rx="1" fill="#111" stroke="rgba(200,255,0,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
   <text x="702" y="528" text-anchor="middle" font-size="8" letter-spacing="2" fill="#555">COMPOSITE</text>
   <text x="702" y="558" text-anchor="middle" font-family="'Arial Black', sans-serif" font-weight="900" font-size="32" fill="url(#redGrad)" filter="url(#subtleglow)">81.7</text>
   <text x="702" y="573" text-anchor="middle" font-size="8" fill="#444">/ 100</text>
@@ -188,24 +188,24 @@
   <text x="165" y="636" font-size="8" fill="#2a2a2a">1.0× TX  ·  1.2× CPART  ·  0.8× AGE  ·  1.3× REPAY  ·  1.5× EXPLOIT  ·  1.4× PROMPT  ·  1.1× PEER</text>
 
   <!-- hermes + aeon tags -->
-  <rect x="78" y="648" width="90" height="18" rx="1" fill="rgba(229,51,51,0.06)" stroke="rgba(229,51,51,0.15)" stroke-width="1"/>
-  <text x="123" y="660" text-anchor="middle" font-size="8" fill="#e53333" letter-spacing="1">AEON ENGINE</text>
+  <rect x="78" y="648" width="90" height="18" rx="1" fill="rgba(200,255,0,0.06)" stroke="rgba(200,255,0,0.15)" stroke-width="1"/>
+  <text x="123" y="660" text-anchor="middle" font-size="8" fill="#c8ff00" letter-spacing="1">AEON ENGINE</text>
 
-  <rect x="178" y="648" width="110" height="18" rx="1" fill="rgba(229,51,51,0.06)" stroke="rgba(229,51,51,0.15)" stroke-width="1"/>
-  <text x="233" y="660" text-anchor="middle" font-size="8" fill="#e53333" letter-spacing="1">HERMES MEMORY</text>
+  <rect x="178" y="648" width="110" height="18" rx="1" fill="rgba(200,255,0,0.06)" stroke="rgba(200,255,0,0.15)" stroke-width="1"/>
+  <text x="233" y="660" text-anchor="middle" font-size="8" fill="#c8ff00" letter-spacing="1">HERMES MEMORY</text>
 
-  <rect x="298" y="648" width="110" height="18" rx="1" fill="rgba(229,51,51,0.06)" stroke="rgba(229,51,51,0.15)" stroke-width="1"/>
-  <text x="353" y="660" text-anchor="middle" font-size="8" fill="#e53333" letter-spacing="1">BASE MAINNET RPC</text>
+  <rect x="298" y="648" width="110" height="18" rx="1" fill="rgba(200,255,0,0.06)" stroke="rgba(200,255,0,0.15)" stroke-width="1"/>
+  <text x="353" y="660" text-anchor="middle" font-size="8" fill="#c8ff00" letter-spacing="1">BASE MAINNET RPC</text>
 
   <!-- Arrow down from engine -->
-  <line x1="450" y1="690" x2="450" y2="714" stroke="rgba(229,51,51,0.4)" stroke-width="1" stroke-dasharray="3,2"/>
-  <polygon points="445,710 455,710 450,718" fill="rgba(229,51,51,0.6)"/>
+  <line x1="450" y1="690" x2="450" y2="714" stroke="rgba(200,255,0,0.4)" stroke-width="1" stroke-dasharray="3,2"/>
+  <polygon points="445,710 455,710 450,718" fill="rgba(200,255,0,0.6)"/>
 
   <!-- ─── ④ ERC-8004 ─── -->
   <text x="60" y="734" font-size="9" letter-spacing="2" fill="#333">④ ON-CHAIN ANCHORING</text>
 
-  <rect x="60" y="742" width="780" height="64" rx="2" fill="#0c0c0c" stroke="rgba(229,51,51,0.2)" stroke-width="1"/>
-  <rect x="60" y="742" width="780" height="2" fill="rgba(229,51,51,0.3)"/>
+  <rect x="60" y="742" width="780" height="64" rx="2" fill="#0c0c0c" stroke="rgba(200,255,0,0.2)" stroke-width="1"/>
+  <rect x="60" y="742" width="780" height="2" fill="rgba(200,255,0,0.3)"/>
 
   <!-- passport icon area -->
   <rect x="78" y="758" width="48" height="32" rx="1" fill="#111" stroke="#222" stroke-width="1"/>
@@ -215,12 +215,12 @@
   <text x="140" y="780" font-size="9" fill="#555">Score + cryptographic proof anchored to Base mainnet  ·  tamper-evident  ·  permissionless verify</text>
   <text x="140" y="793" font-size="9" fill="#444">passport: 0x4a2b8c91...f2e3  ·  block: 21,847,392  ·  chain: base</text>
 
-  <rect x="724" y="756" width="108" height="22" rx="1" fill="rgba(229,51,51,0.1)" stroke="rgba(229,51,51,0.3)" stroke-width="1"/>
-  <text x="778" y="771" text-anchor="middle" font-size="9" fill="#e53333" letter-spacing="1">BASE MAINNET · LIVE</text>
+  <rect x="724" y="756" width="108" height="22" rx="1" fill="rgba(200,255,0,0.1)" stroke="rgba(200,255,0,0.3)" stroke-width="1"/>
+  <text x="778" y="771" text-anchor="middle" font-size="9" fill="#c8ff00" letter-spacing="1">BASE MAINNET · LIVE</text>
 
   <!-- Arrow down -->
-  <line x1="450" y1="806" x2="450" y2="830" stroke="rgba(229,51,51,0.4)" stroke-width="1" stroke-dasharray="3,2"/>
-  <polygon points="445,826 455,826 450,834" fill="rgba(229,51,51,0.6)"/>
+  <line x1="450" y1="806" x2="450" y2="830" stroke="rgba(200,255,0,0.4)" stroke-width="1" stroke-dasharray="3,2"/>
+  <polygon points="445,826 455,826 450,834" fill="rgba(200,255,0,0.6)"/>
 
   <!-- ─── ⑤ VERDICT OUTPUT ─── -->
   <text x="60" y="850" font-size="9" letter-spacing="2" fill="#333">⑤ VERDICT OUTPUT</text>
@@ -242,10 +242,10 @@
   <text x="450" y="940" text-anchor="middle" font-size="9" fill="#6b5010">Proceed with caution · verify manually</text>
 
   <!-- HIGH RISK -->
-  <rect x="602" y="858" width="238" height="100" rx="2" fill="rgba(229,51,51,0.06)" stroke="rgba(229,51,51,0.25)" stroke-width="1"/>
-  <rect x="602" y="858" width="238" height="2" fill="#e53333"/>
-  <text x="721" y="888" text-anchor="middle" font-size="28" fill="#e53333" font-family="'Arial Black', sans-serif" font-weight="900">✕</text>
-  <text x="721" y="910" text-anchor="middle" font-size="11" fill="#e53333" letter-spacing="2">HIGH_RISK</text>
+  <rect x="602" y="858" width="238" height="100" rx="2" fill="rgba(200,255,0,0.06)" stroke="rgba(200,255,0,0.25)" stroke-width="1"/>
+  <rect x="602" y="858" width="238" height="2" fill="#c8ff00"/>
+  <text x="721" y="888" text-anchor="middle" font-size="28" fill="#c8ff00" font-family="'Arial Black', sans-serif" font-weight="900">✕</text>
+  <text x="721" y="910" text-anchor="middle" font-size="11" fill="#c8ff00" letter-spacing="2">HIGH_RISK</text>
   <text x="721" y="926" text-anchor="middle" font-size="9" fill="#555">Score 0–64</text>
   <text x="721" y="940" text-anchor="middle" font-size="9" fill="#6e2a2a">Do not delegate · do not transact</text>
 

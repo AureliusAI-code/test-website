@@ -9,8 +9,8 @@ const readline = require('readline');
 
 // ── ANSI ──────────────────────────────────────────────────────────────────────
 const c = {
-  red:    '\x1b[31m',
-  bred:   '\x1b[1;31m',
+  red:    '\x1b[92m',
+  bred:   '\x1b[1;92m',
   green:  '\x1b[32m',
   bgreen: '\x1b[1;32m',
   yellow: '\x1b[33m',

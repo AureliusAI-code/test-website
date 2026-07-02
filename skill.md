@@ -135,8 +135,6 @@ You: 1. GET https://api.askspecter.lol/v1/verify/0x...
 
 - Scores update every 15 minutes (one Aeon heartbeat interval)
 - Querying is permissionless — no API key required for up to 1,000 queries/month
-- For high-volume use, pay-per-query via x402 on Bankr: https://bankr.bot/x402
 - ERC-8004 passport registration: https://askspecter.lol
 - Full documentation: https://askspecter.lol/docs
-- GitHub: https://github.com/askspecter
 - Twitter: https://x.com/AskSpecter

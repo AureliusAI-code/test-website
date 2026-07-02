@@ -347,7 +347,7 @@
     <span class="sidebar-label">Integration</span>
     <a href="#aeon"          class="sidebar-link">Aeon Integration</a>
     <a href="#hermes"        class="sidebar-link">Hermes Integration</a>
-    <a href="#bankr"         class="sidebar-link">Bankr Skills</a>
+    
     <a href="#api"           class="sidebar-link">API Reference</a>
   </div>
 
@@ -377,7 +377,7 @@
     </p>
 
     <div class="callout">
-      <strong>Early Access</strong> — SPECTER is live on Robinhood Network. The scoring engine, CLI, and Bankr Skill are available now. ERC-8004 passport registration opens Q3 2026.
+      <strong>Early Access</strong> — SPECTER is live on Robinhood Network. The scoring engine and CLI are available now. ERC-8004 passport registration opens Q3 2026.
     </div>
 
     <h3>Why SPECTER?</h3>
@@ -390,7 +390,7 @@
         <tr><td>Permissionless</td><td>Query any address — no API key, no signup required</td></tr>
         <tr><td>Self-improving</td><td>Model retrains on new behavioral data each epoch</td></tr>
         <tr><td>Multi-chain</td><td>Aggregates signals from Base, Ethereum, Arbitrum, Optimism</td></tr>
-        <tr><td>Bankr native</td><td>Drop-in Bankr Skill — install in 30 seconds</td></tr>
+        
       </tbody>
     </table>
   </section>
@@ -398,10 +398,10 @@
   <!-- QUICKSTART -->
   <section id="quickstart">
     <h2>Quick Start</h2>
-    <p>The fastest way to integrate SPECTER is via the Bankr Skill. It takes 30 seconds and requires no infrastructure.</p>
+    <p>The fastest way to integrate SPECTER is via the CLI or REST API.</p>
 
-    <h3>1. Install via Bankr</h3>
-    <pre><code><span class="cmt"># Paste this command in Bankr chat</span>
+    <h3>1. Install via CLI</h3>
+    <pre><code><span class="cmt"># Install via npm</span>
 /skill https://askspecter.lol/skill.md</code></pre>
 
     <h3>2. Score an agent</h3>
@@ -428,15 +428,15 @@
   <!-- INSTALL -->
   <section id="install">
     <h2>Install Skill.md</h2>
-    <p>SPECTER is packaged as a <a href="https://bankr.bot" target="_blank">Bankr Skill</a> — a SKILL.MD file that teaches your agent how to query the protocol.</p>
+    <p>SPECTER is packaged as a SPECTER Skill — a SKILL.MD file that teaches your agent how to query the protocol.</p>
 
-    <pre><code><span class="cmt"># In Bankr chat — installs SPECTER as an active skill</span>
+    <pre><code><span class="cmt"># In  chat — installs SPECTER as an active skill</span>
 /skill https://askspecter.lol/skill.md</code></pre>
 
-    <p>This registers SPECTER with your Bankr agent. Once installed, any agent on Bankr can call SPECTER to score addresses, verify ERC-8004 passports, and gate workflows on trust. No API keys required.</p>
+    <p>This registers SPECTER with your  agent. Once installed, any agent  can call SPECTER to score addresses, verify ERC-8004 passports, and gate workflows on trust. No API keys required.</p>
 
     <div class="callout">
-      <strong>Manual install:</strong> For Aeon or Hermes agents outside Bankr, download the <a href="/skill.md" target="_blank">SKILL.MD</a> and add it to your agent's skills directory or system context.
+      <strong>Manual install:</strong> For Aeon or Hermes agents outside , download the <a href="/skill.md" target="_blank">SKILL.MD</a> and add it to your agent's skills directory or system context.
     </div>
   </section>
 
@@ -564,9 +564,9 @@ AgentPassport memory p = registry.getPassport(agentAddress);
   <!-- AEON -->
   <section id="aeon">
     <h2>Aeon Integration</h2>
-    <p><a href="https://github.com/aaronjmars/aeon" target="_blank">Aeon</a> is an autonomous agent framework built on GitHub Actions. SPECTER ships as a first-class Aeon skill, callable from any workflow step.</p>
+    <p>Aeon is an autonomous agent framework built on GitHub Actions. SPECTER ships as a first-class Aeon skill, callable from any workflow step.</p>
 
-    <pre><code><span class="cmt"># .github/workflows/score.yml</span>
+    <pre><code><span class="cmt"># workflow step</span>
 - <span class="kw">name</span>: Score counterparty agent
   <span class="kw">uses</span>: askspecter/aeon-skill@v1
   <span class="kw">with</span>:
@@ -580,7 +580,7 @@ AgentPassport memory p = registry.getPassport(agentAddress);
   <!-- HERMES -->
   <section id="hermes">
     <h2>Hermes Integration</h2>
-    <p><a href="https://github.com/NousResearch/hermes-agent" target="_blank">Hermes</a> is a self-improving Python agent with cross-session memory. SPECTER integrates directly with Hermes to contribute <code>PROMPT_INTEGRITY</code> signals from session logs.</p>
+    <p>Hermes is a self-improving Python agent with cross-session memory. SPECTER integrates directly with Hermes to contribute <code>PROMPT_INTEGRITY</code> signals from session logs.</p>
 
     <pre><code><span class="kw">from</span> specter <span class="kw">import</span> HermesIntegration
 
@@ -591,15 +591,7 @@ specter.submit_session_log(session_id, log_hash)</code></pre>
   </section>
 
   <!-- BANKR -->
-  <section id="bankr">
-    <h2>Bankr Skills</h2>
-    <p>SPECTER is available as a <a href="https://bankr.bot" target="_blank">Bankr Skill</a> — the plug-and-play capability format for agents on the Bankr platform. Install it once and any Bankr-powered agent can score any address.</p>
-
-    <pre><code><span class="cmt"># Bankr slash command</span>
-/skill https://askspecter.lol/skill.md</code></pre>
-
-    <p>SPECTER also supports <a href="https://bankr.bot/x402" target="_blank">x402 micropayments</a> — pay-per-query pricing for high-volume integrations. This is optional; the default free tier covers 1,000 queries/month.</p>
-  </section>
+  
 
   <!-- API -->
   <section id="api">
@@ -683,7 +675,7 @@ $ node cli/bin/specter.js help</code></pre>
     <h2>FAQ</h2>
 
     <h3>Is SPECTER free to use?</h3>
-    <p>Yes. The default tier includes 1,000 score queries per month at no cost. High-volume integrations can pay per-query via x402 micropayments on Bankr.</p>
+    <p>Yes. The default tier includes 1,000 score queries per month at no cost. High-volume integrations can pay per-query via x402 micropayments.</p>
 
     <h3>How often do scores update?</h3>
     <p>Scores update every 15 minutes — one Aeon heartbeat interval. Scores for highly active agents may update faster during periods of significant on-chain activity.</p>
